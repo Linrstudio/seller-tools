@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon FBA vs eBay Fees (2026) — Same Product, Both Fee Stacks | Seller Tools</title>
+<meta name="description" content="Amazon FBA vs eBay compared with identical costs: referral + fulfillment + storage against eBay's 13.6% FVF, per-order fee and the sales-tax trap.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/compare/amazon-vs-ebay/">
+<link rel="stylesheet" href="/assets/site.css?v=2">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+<h1>Amazon FBA vs eBay: which keeps more?</h1>
+   <p class="lede">eBay's 13.6% looks close to Amazon's 15% referral — but Amazon adds fulfillment on top, while eBay's percentage secretly grows with your buyer's sales tax. Same product, both stacks, five prices.</p>
+   <div class="card" id="vs-root" data-a="amazon-fba" data-b="ebay">
+     <div class="field" style="max-width:280px"><label for="vs-price">Selling price ($)</label><input id="vs-price" type="number" step="0.01" min="1" value="29.99"></div>
+     <p id="vs-verdict" style="font-size:1.05rem"></p>
+     <div class="calc-grid">
+       <div><h3 id="vs-a-name"></h3><table class="lines"><tbody id="vs-a-lines"></tbody></table></div>
+       <div><h3 id="vs-b-name"></h3><table class="lines"><tbody id="vs-b-lines"></tbody></table></div>
+     </div>
+     <h3>Who wins at each price?</h3>
+     <table class="compare"><thead><tr><th>Price</th><th>Amazon FBA keeps</th><th>eBay keeps</th><th>Winner</th></tr></thead><tbody id="vs-bands"></tbody></table>
+     <p class="note">Canonical profile: product cost 35% of price, inbound $1.20, packaging $0.30, self-shipping $4.80 where relevant, ads 10% of price, returns 5%, 300 units/month, TikTok affiliate 10%. Change the real inputs on each platform's own calculator page.</p>
+   </div>
+   <section class="prose"><h2>Where each one bites</h2><p>Amazon bites in the open: fulfillment, storage, placement, plan. eBay bites quietly: the FVF applies to the tax-inclusive total, so in high-tax states your effective rate creeps toward 15% while Amazon's stays put. For one-off, used, or long-tail inventory, eBay also skips the inbound-shipping-to-a-warehouse step entirely — you ship once, to the buyer.</p><h2>The verdict pattern</h2><p>For standardized products at volume, FBA's logistics usually repay their fees in conversion. For irregular inventory — the thing eBay was built for — Amazon's stack has nothing to attach to. The price bands above show the fee story; the inventory story is yours.</p></section>
+   <script src="/assets/fees-data.js?v=2"></script>
+   <script src="/assets/engine.js?v=2"></script>
+   <script src="/assets/ui.js?v=2"></script>
+   <script src="/assets/vs.js?v=1"></script>
+   <script>initVs("vs-root");</script>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/fee-schedules/">Fee Schedules</a> · <a href="/examples/">Worked Examples</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+</body>
+</html>
