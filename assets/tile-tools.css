@@ -1,0 +1,12 @@
+.tile-page{padding-top:28px;padding-bottom:56px}
+.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--accent);margin:0 0 10px}
+.quote-highlight{background:#edf5ff;border:1px solid #c8def5;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:5px}
+.quote-highlight span{font-size:.85rem;color:var(--muted)}
+.quote-highlight strong{font-size:2.25rem;line-height:1.2;color:var(--accent);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tile-page .stat .v{overflow-wrap:anywhere}
+.tile-page .field .hint,.field-error{display:block}
+.field-error{color:var(--bad);font-size:.8rem;margin-top:3px}
+.tile-page input[aria-invalid="true"]{border-color:var(--bad)}
+.error-summary{border-left:3px solid var(--bad);background:#fff2f0;padding:10px;color:var(--bad)}
+.tile-page input:focus-visible,.tile-page button:focus-visible{outline:3px solid #a1c9f0;outline-offset:2px}
+@media(max-width:420px){.tile-page .row2{grid-template-columns:1fr}.tile-page .card{padding:16px}.tile-page .stat{padding:10px}.tile-page .stat .v{font-size:1.15rem}}

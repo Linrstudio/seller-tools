@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tile Quote &amp; Margin Calculator for Sellers | Seller Tools</title>
+<meta name="description" content="Build a profitable tile project quote. Calculate full boxes with waste, material and labor costs, and the selling price needed to reach your target gross margin. Free, tax excluded.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/tile-seller-tools/">
+<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/tile-tools.css?v=1">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Tile Quote & Margin Calculator","url":"https://seller-tools.qingyinhui.com/tile-seller-tools/","description":"Seller-side tile project quoting with full-box rounding, waste allowance and target gross margin.","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main" aria-label="Main navigation"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a><a href="/tile-seller-tools/" aria-current="page">Tile &amp; Flooring</a></nav>
+</div></header>
+<main class="wrap tile-page">
+  <p class="eyebrow">Tile &amp; Flooring · Seller tools</p>
+  <h1>Tile Quote &amp; Margin Calculator</h1>
+  <p class="lede">Turn project measurements into a quote that protects your margin. For tile retailers, flooring sellers and contractors — not a consumer tile-count calculator.</p>
+  <p class="note">USD · Square feet · Tax excluded · Free, no sign-up. Your inputs stay in your browser.</p>
+  <noscript><p class="card">Enable JavaScript to use the calculator. You can still read the formulas and worked example below.</p></noscript>
+  <div class="calc-grid">
+    <form class="card" id="tile-form" novalidate>
+      <h2>Your project &amp; costs</h2>
+      <fieldset><legend>Quantity planning</legend>
+        <div class="row2">
+          <div class="field"><label for="area">Project area (sq ft)</label><input id="area" name="area" type="number" min="0.01" step="any" value="500" required inputmode="decimal" aria-describedby="area-error"><span class="field-error" id="area-error"></span></div>
+          <div class="field"><label for="coverage">Tile coverage per box (sq ft)</label><input id="coverage" name="coverage" type="number" min="0.01" step="any" value="15.5" required inputmode="decimal" aria-describedby="coverage-hint coverage-error"><span class="hint" id="coverage-hint">Use the coverage printed on the box.</span><span class="field-error" id="coverage-error"></span></div>
+        </div>
+        <div class="field"><label for="waste">Waste allowance (%)</label><input id="waste" name="waste" type="number" min="0" step="any" value="10" required inputmode="decimal" aria-describedby="waste-hint waste-error"><span class="hint" id="waste-hint">Added before rounding up to full boxes. Adjust for cuts, layout and breakage.</span><span class="field-error" id="waste-error"></span></div>
+      </fieldset>
+      <fieldset><legend>Your costs, not customer charges</legend>
+        <div class="field"><label for="costPerBox">Cost per box ($)</label><input id="costPerBox" name="costPerBox" type="number" min="0" step="any" value="32" required inputmode="decimal" aria-describedby="costPerBox-error"><span class="field-error" id="costPerBox-error"></span></div>
+        <div class="row2">
+          <div class="field"><label for="delivery">Delivery / other costs ($)</label><input id="delivery" name="delivery" type="number" min="0" step="any" value="150" required inputmode="decimal" aria-describedby="delivery-hint delivery-error"><span class="hint" id="delivery-hint">Total for this project, including any supplies or freight.</span><span class="field-error" id="delivery-error"></span></div>
+          <div class="field"><label for="labor">Labor cost ($)</label><input id="labor" name="labor" type="number" min="0" step="any" value="600" required inputmode="decimal" aria-describedby="labor-hint labor-error"><span class="hint" id="labor-hint">Total labor cost. Use 0 for a materials-only quote.</span><span class="field-error" id="labor-error"></span></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Pricing target</legend>
+        <div class="field"><label for="margin">Target gross margin (%)</label><input id="margin" name="margin" type="number" min="0" max="99.99" step="any" value="35" required inputmode="decimal" aria-describedby="margin-hint margin-error"><span class="hint" id="margin-hint">Share of your quote left as gross profit — not markup. Must be below 100%.</span><span class="field-error" id="margin-error"></span></div>
+      </fieldset>
+      <button type="reset" class="btn ghost">Reset example</button>
+    </form>
+    <section class="card quote-card" aria-labelledby="quote-title">
+      <h2 id="quote-title">Your project quote</h2>
+      <p id="tile-error" class="error-summary" role="alert" hidden></p>
+      <div id="tile-results" aria-live="polite" aria-atomic="true">
+        <div class="quote-highlight"><span>Quote at target margin · before tax</span><strong id="quote">—</strong><span id="target-label">Includes materials, delivery / other costs and labor</span></div>
+        <div class="stats">
+          <div class="stat"><div class="k">Boxes to order</div><div class="v" id="boxes">—</div></div>
+          <div class="stat"><div class="k">Tile material cost</div><div class="v" id="materialCost">—</div></div>
+          <div class="stat"><div class="k">Estimated total cost</div><div class="v" id="totalCost">—</div></div>
+          <div class="stat"><div class="k">Gross profit</div><div class="v pos" id="profit">—</div></div>
+          <div class="stat"><div class="k">Gross margin</div><div class="v pos" id="grossMargin">—</div></div>
+        </div>
+        <p class="note" id="coverage-summary">Enter project details to see your full-box coverage.</p>
+      </div>
+      <p class="note">The formula is total cost ÷ (1 − target margin). The quote is rounded <strong>up</strong> to the next cent so rounding does not undercut your target. Gross profit and margin use that rounded quote.</p>
+      <p class="note">This is an estimate, not an invoice. Sales tax is excluded. Overhead, payment fees, marketplace fees and costs you have not entered are not automatically included. Gross profit is not net profit.</p>
+    </section>
+  </div>
+  <section class="prose">
+    <h2>Plan the boxes. Then price the whole job.</h2>
+    <p>A quantity-only calculator tells a homeowner how much tile to buy. This tool helps a seller work out what to charge: it includes the cost of every full box, delivery / other costs and labor, then prices the project to a target gross margin.</p>
+    <h2>How the calculation works</h2>
+    <ol>
+      <li>Area including waste = project area × (1 + waste allowance ÷ 100).</li>
+      <li>Boxes to order = area including waste ÷ coverage per box, rounded up to a whole box.</li>
+      <li>Tile material cost = boxes to order × cost per box.</li>
+      <li>Estimated total cost = material cost + delivery / other costs + labor cost.</li>
+      <li>Quote before tax = total cost ÷ (1 − target gross margin ÷ 100).</li>
+      <li>Gross profit = quote − total cost. Gross margin = gross profit ÷ quote × 100.</li>
+    </ol>
+    <h2>Worked example: a 500 sq ft project</h2>
+    <p>With 10% waste, you need 550 sq ft. At 15.5 sq ft per box, order <strong>36 boxes</strong>, covering 558 sq ft. At $32 per box, materials cost $1,152. Add $150 for delivery / other costs and $600 for labor: total estimated cost is <strong>$1,902</strong>.</p>
+    <p>To reach a 35% gross margin, divide $1,902 by 0.65. Rounded up to the next cent, your quote is <strong>$2,926.16 before tax</strong>, leaving <strong>$1,024.16 gross profit</strong>.</p>
+    <h2>Margin is not markup</h2>
+    <p>A 35% markup on $1,902 produces a $2,567.70 quote, but only a 25.93% gross margin. A 35% margin means you keep 35% of the selling price as gross profit, so you divide cost by 0.65 instead of multiplying it by 1.35.</p>
+    <h2>What if I only sell materials?</h2>
+    <p>Set labor to 0 and enter any freight, delivery or other project costs you bear. Include costs once: if your cost per box already includes inbound freight, do not add it again under delivery.</p>
+    <h2>What is excluded?</h2>
+    <p>Tax is excluded by default and is not calculated here. Overhead and selling fees are included only if you add them to your costs; percentage-of-revenue fees are not modeled by this tool. For online marketplace fees, use the <a href="/">platform comparison calculator</a> or <a href="/reverse-pricing-calculator/">Reverse Pricing Calculator</a>.</p>
+    <p class="note">If all costs are zero, the quote and profit are zero and gross margin is shown as N/A because there is no revenue to divide by.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a> · <a href="/tile-seller-tools/">Tile &amp; Flooring</a> · <a href="/fee-schedules/">Fee Schedules</a> · <a href="/examples/">Examples</a></div></footer>
+<script src="/assets/tile-calculator.js?v=1"></script>
+<script src="/assets/tile-ui.js?v=1"></script>
+</body>
+</html>
