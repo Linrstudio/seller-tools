@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok Shop Fee Calculator 2026 — Referral, Affiliate Commission &amp; Real Profit | Seller Tools</title>
+<meta name="description" content="Free TikTok Shop calculator: 6% referral fee plus the creator affiliate commission everyone forgets, FBT or self-shipping, shop ads and refund admin fees — your true profit per order.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/tiktok-shop-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What fees does TikTok Shop charge in the US?","acceptedAnswer":{"@type":"Answer","text":"A referral fee of 6% of the order total for most categories (5% for jewelry and pre-owned). On top of that, most sales carry a creator affiliate commission you set — commonly 5–20% — plus your shipping or FBT costs, ads, and a refund administration fee on returned orders."}},
+{"@type":"Question","name":"What is the TikTok Shop refund administration fee?","acceptedAnswer":{"@type":"Answer","text":"When an order is refunded, TikTok keeps 20% of the referral fee for that order (capped at $5 per item) as an administration fee, instead of returning the whole referral fee."}},
+{"@type":"Question","name":"Is TikTok Shop cheaper than Amazon?","acceptedAnswer":{"@type":"Answer","text":"The headline says yes (6% vs 15% referral), but once you add a typical 10–15% affiliate commission and your own shipping, TikTok's total take often lands close to Amazon FBA. Run both calculators with the same product to compare honestly."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>TikTok Shop Fee Calculator (US, 2026)</h1>
+  <p class="lede">TikTok's “6%” is real — and almost never the whole story. The creator commission that drives most TikTok sales costs two to three times the referral fee. This calculator stacks both, plus delivery, ads and refund admin fees.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="tt-form">
+      <h2>Your product</h2>
+      <fieldset><legend>Order</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Item price ($)</label><input id="price" type="number" step="0.01" min="0" value="24.99"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="referralRatePct">Referral fee rate (%)</label><input id="referralRatePct" type="number" step="0.1" min="0" max="30" value="6"><span class="hint">6% most categories · 5% jewelry &amp; pre-owned</span></div>
+          <div class="field"><label for="affiliateRate">Creator commission (%)</label><input id="affiliateRate" type="number" step="0.5" min="0" max="100" value="12"><span class="hint">The rate you offer affiliates, on price</span></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Delivery</legend>
+        <div class="row2">
+          <div class="field"><label for="shippingMode">Fulfillment</label>
+            <select id="shippingMode"><option value="self">Ship it yourself</option><option value="fbt">Fulfilled by TikTok (FBT)</option></select></div>
+          <div class="field"><label for="shippingCost">Delivery cost per order ($)</label><input id="shippingCost" type="number" step="0.01" min="0" value="4.60"><span class="hint">Your postage, or the FBT fee</span></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Your costs</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="6.50"></div>
+          <div class="field"><label for="inboundPerUnit">Inbound freight / unit ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.10"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="packaging">Packaging ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.30"></div>
+          <div class="field"><label for="adRate">Shop ads (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="5"></div>
+        </div>
+        <div class="field"><label for="returnRate">Returns &amp; refunds rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="6"><span class="hint">Drives both the expected product loss and refund admin fees</span></div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-order breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Net profit / order</div><div class="v" id="st-net">–</div></div>
+        <div class="stat"><div class="k">Margin</div><div class="v" id="st-margin">–</div></div>
+        <div class="stat"><div class="k">TikTok pays you</div><div class="v" id="st-payout">–</div></div>
+        <div class="stat"><div class="k">Platform + creator take</div><div class="v" id="st-take">–</div></div>
+        <div class="stat"><div class="k">Break-even price</div><div class="v" id="st-be">–</div></div>
+        <div class="stat"><div class="k">Profit with no affiliate</div><div class="v" id="st-noaff">–</div></div>
+      </div>
+      <table class="lines"><tbody id="tt-lines"></tbody></table>
+      <p class="note">“Profit with no affiliate” shows what the same order earns on organic traffic — the gap between the two numbers is exactly what creator distribution costs you.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>TikTok Shop's real fee stack</h2>
+    <p><strong>Referral fee — 6% (most categories).</strong> Charged on the order total including shipping you charge, net of discounts and excluding buyer-paid tax. Jewelry and pre-owned sit at 5%. Rates were introduced per category in 2024–2025; if your Seller Center shows a different rate for your category, type it in — the field is editable on purpose.</p>
+    <p><strong>Creator affiliate commission — the big one.</strong> Most TikTok Shop volume runs through creators, and the commission you offer (typically 5–20%, sometimes 30%+ for launches) usually exceeds the referral fee two or three times over. Any “TikTok only takes 6%” comparison quietly assumes this is zero.</p>
+    <p><strong>Delivery.</strong> Self-shipping means your postage label; FBT (Fulfilled by TikTok) bundles warehousing and delivery into a per-order fee that shows up as a deduction. Either way, it's real money per order — put your actual number in.</p>
+    <p><strong>Refund administration fee.</strong> Refund an order and TikTok keeps 20% of that order's referral fee (capped at $5 per item). Small per order, but TikTok return rates in fashion-adjacent categories are not small — we model it as an expected cost from your return rate.</p>
+    <p><strong>Co-funded promotions.</strong> Campaign discounts TikTok part-funds change your realized price rather than your fees; model them by lowering the price input.</p>
+    <h2>FAQ</h2>
+    <p><strong>Why do sellers say TikTok is “cheaper than Amazon”?</strong> Because 6% &lt; 15%. Add a 12% affiliate commission and $4.60 delivery and the same $25 product keeps less on TikTok than the headline suggests — the honest comparison is exactly what the <a href="/">six-platform tool</a> on our homepage does.</p>
+    <p><strong>What commission should I offer creators?</strong> Work backwards from this calculator: set the commission so your per-order profit still clears your floor. If a 15% commission makes the order unprofitable, no volume of creator sales fixes that — it scales the loss.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22. TikTok adjusts category rates with little notice; your Seller Center fee statement wins. Compare on <a href="/">all six platforms</a>.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+initShareable("tt-form");
+let last = null;
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), referralRatePct: fval("referralRatePct"),
+  affiliateRate: fval("affiliateRate"), shippingMode: sval("shippingMode"), shippingCost: fval("shippingCost"),
+  cogs: fval("cogs"), inboundPerUnit: fval("inboundPerUnit"), packaging: fval("packaging"),
+  adRate: fval("adRate"), returnRate: fval("returnRate")
+};}
+function run(){
+  const inp = readInput(); const r = calcTiktok(inp); last = { inp, r };
+  renderLines("tt-lines", r, "$");
+  $("st-net").textContent = money(r.netProfit); $("st-net").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-margin").textContent = r.margin.toFixed(1) + "%";
+  $("st-payout").textContent = money(r.payout);
+  $("st-take").textContent = money(r.totalFees) + " (" + r.takeRate.toFixed(1) + "%)";
+  const be = breakEvenPrice(calcTiktok, inp);
+  $("st-be").textContent = be ? money(be) : "—";
+  const noAff = calcTiktok({ ...inp, affiliateRate: 0 });
+  $("st-noaff").textContent = money(noAff.netProfit);
+  $("st-noaff").className = "v " + (noAff.netProfit >= 0 ? "pos" : "neg");
+}
+onCalc("tt-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => { if (!last) return; const { inp, r } = last;
+  copyText(`TikTok Shop order ${money(inp.price)}: platform+creator take ${money(r.totalFees)} (${r.takeRate.toFixed(1)}%), net profit ${money(r.netProfit)} (${r.margin.toFixed(1)}%). via seller-tools.qingyinhui.com/tiktok-shop-calculator/`, "Summary copied"); });
+</script>
+</body>
+</html>

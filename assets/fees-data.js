@@ -69,16 +69,28 @@ const FEES = {
     ]
   },
 
-  ebay: { // US, no store — used by the comparison tool in week 1; full category table ships with the eBay page
+  ebay: { // US site. Most sellers have no store; store plans mainly cut FVF by category-specific amounts.
+    perOrderLow: 0.30, perOrderHigh: 0.40, perOrderThreshold: 10, // threshold applies to total incl. tax
+    internationalRate: 0.0165,
+    insertionFreePerMonth: 250, insertionFee: 0.35,
     defaultRate: 0.136,
-    perOrderLow: 0.30, perOrderHigh: 0.40, perOrderThreshold: 10
+    /* marginal = rate applies to the portion of the total within each band */
+    categories: [
+      { id: "most",        label: "Most categories",                    type: "flat", rate: 0.136 },
+      { id: "clothing",    label: "Clothing, Shoes & Accessories",      type: "flat", rate: 0.136 },
+      { id: "books",       label: "Books, Movies & Music (media)",      type: "flat", rate: 0.153 },
+      { id: "cards",       label: "Trading Cards",                      type: "flat", rate: 0.130 },
+      { id: "handbags",    label: "Women's Handbags",                   type: "marginal", bands: [{ upTo: 100, rate: 0.15 }, { upTo: Infinity, rate: 0.09 }] },
+      { id: "watches",     label: "Watches",                            type: "marginal", bands: [{ upTo: 1000, rate: 0.15 }, { upTo: Infinity, rate: 0.065 }] },
+      { id: "instruments", label: "Guitars & Basses",                   type: "flat", rate: 0.0635 }
+    ]
   },
 
   shopify: {
     plans: [
-      { id: "basic",    label: "Basic ($39/mo)",    monthly: 39,  cardRate: 0.029, cardFixed: 0.30, thirdPartyExtra: 0.02 },
-      { id: "grow",     label: "Grow ($105/mo)",    monthly: 105, cardRate: 0.027, cardFixed: 0.30, thirdPartyExtra: 0.01 },
-      { id: "advanced", label: "Advanced ($399/mo)", monthly: 399, cardRate: 0.025, cardFixed: 0.30, thirdPartyExtra: 0.006 }
+      { id: "basic",    label: "Basic",    monthly: 39,  annualMonthly: 29,  cardRate: 0.029, cardFixed: 0.30, thirdPartyExtra: 0.02 },
+      { id: "grow",     label: "Grow",     monthly: 105, annualMonthly: 79,  cardRate: 0.027, cardFixed: 0.30, thirdPartyExtra: 0.01 },
+      { id: "advanced", label: "Advanced", monthly: 399, annualMonthly: 299, cardRate: 0.025, cardFixed: 0.30, thirdPartyExtra: 0.006 }
     ]
   },
 

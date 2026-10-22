@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eBay Fee Calculator 2026 — Final Value Fee by Category, incl. the Tax Trap | Seller Tools</title>
+<meta name="description" content="Free eBay fee calculator: final value fees by category (incl. tiered handbags and watches), per-order fee, Promoted Listings, the sales-tax trap, insertion fees and your real profit per sale.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/ebay-fee-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does eBay take from a $100 sale?","acceptedAnswer":{"@type":"Answer","text":"In most categories, $14.00 before shipping costs: a 13.6% final value fee ($13.60) plus a $0.40 per-order fee. If the buyer paid 8% sales tax, the fee is charged on $108, not $100, so eBay takes $14.69."}},
+{"@type":"Question","name":"Does eBay charge fees on sales tax?","acceptedAnswer":{"@type":"Answer","text":"Yes. The final value fee is calculated on the total amount of the sale, which includes shipping and the sales tax eBay collects from the buyer — money that never reaches you."}},
+{"@type":"Question","name":"What is the eBay per-order fee?","acceptedAnswer":{"@type":"Answer","text":"$0.30 per order when the total amount of the sale is $10.00 or less, and $0.40 when it is above $10.00. It is charged once per order, not per item."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>eBay Fee Calculator (2026)</h1>
+  <p class="lede">Most calculators stop at “13.6% + $0.40”. This one includes the part that surprises sellers on their first statement: eBay charges the final value fee on the total <em>including the sales tax the buyer paid</em> — plus promoted listings, insertion fees and your real costs.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="ebay-form">
+      <h2>Your sale</h2>
+      <fieldset><legend>Sale</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Item price ($)</label><input id="price" type="number" step="0.01" min="0" value="49.99"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="field"><label for="category">Category</label><select id="category"></select></div>
+        <div class="row2">
+          <div class="field"><label for="taxRatePct">Buyer sales tax (%)</label><input id="taxRatePct" type="number" step="0.1" min="0" max="20" value="0"><span class="hint">eBay collects it — but still charges FVF on it. US average ≈ 7–8%</span></div>
+          <div class="field"><label for="rateOverridePct">Custom FVF rate (%) — optional</label><input id="rateOverridePct" type="number" step="0.1" min="0" max="30" value="0"><span class="hint">Overrides category (e.g. your store rate)</span></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Extras</legend>
+        <div class="row2">
+          <div class="field"><label for="promotedRatePct">Promoted Listings rate (%)</label><input id="promotedRatePct" type="number" step="0.1" min="0" max="30" value="0"></div>
+          <div class="field"><label for="monthlyListings">Listings / month</label><input id="monthlyListings" type="number" step="1" min="0" value="250"><span class="hint">First 250 are free, then $0.35</span></div>
+        </div>
+        <div class="field"><label for="monthlyOrders">Orders / month (to spread insertion fees)</label><input id="monthlyOrders" type="number" step="1" min="0" value="250"></div>
+        <label class="check"><input id="topRatedPlus" type="checkbox"> Top Rated Plus listing (10% off FVF)</label>
+        <label class="check"><input id="international" type="checkbox"> Buyer is outside the US (+1.65% international fee)</label>
+      </fieldset>
+      <fieldset><legend>Your costs</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="18"></div>
+          <div class="field"><label for="ownShippingCost">Your shipping cost ($)</label><input id="ownShippingCost" type="number" step="0.01" min="0" value="6.50"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="inboundPerUnit">Inbound shipping ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.50"></div>
+          <div class="field"><label for="packaging">Packaging ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.40"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="adRate">Off-eBay ads (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="0"></div>
+          <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="4"></div>
+        </div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-sale breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Net profit / sale</div><div class="v" id="st-net">–</div></div>
+        <div class="stat"><div class="k">Margin</div><div class="v" id="st-margin">–</div></div>
+        <div class="stat"><div class="k">eBay pays you</div><div class="v" id="st-payout">–</div></div>
+        <div class="stat"><div class="k">eBay's take</div><div class="v" id="st-take">–</div></div>
+        <div class="stat"><div class="k">Fees were charged on</div><div class="v" id="st-base">–</div></div>
+        <div class="stat"><div class="k">Break-even price</div><div class="v" id="st-be">–</div></div>
+      </div>
+      <table class="lines"><tbody id="ebay-lines"></tbody></table>
+      <p class="note">“Fees were charged on” shows the FVF base. When it's higher than your price + shipping, the difference is the buyer's sales tax — eBay's quiet extra.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>eBay's fees, piece by piece</h2>
+    <p><strong>Final value fee (FVF).</strong> A percentage of the <em>total amount of the sale</em>: item price + shipping + sales tax. Most categories are 13.6% for sellers without a store; media (books, movies, music) is 15.3%; trading cards 13%; guitars and basses just 6.35%. Two categories are tiered: handbags pay 15% on the first $100 and 9% above; watches pay 15% on the first $1,000 and 6.5% above — run a $1,200 watch above and watch the tiers work. Store subscriptions lower FVF by category-specific amounts; if you have one, type your effective rate into the override field.</p>
+    <p><strong>Per-order fee.</strong> $0.30 when the total is $10 or less, $0.40 above. Small, but on a $7 item it's another 4–6%.</p>
+    <p><strong>The tax trap.</strong> In most US states eBay collects sales tax from the buyer and remits it — you never see that money. But the FVF is still calculated on the tax-inclusive total. On a $100 sale with 8% tax, you pay fees on $108. Set the tax field to your typical buyer's rate to see your real take.</p>
+    <p><strong>Promoted Listings.</strong> Charged on the same tax-inclusive total when a promoted click leads to a sale within 30 days. A “2%” ad rate that looks cheap in the dashboard is 2% of more than you received.</p>
+    <p><strong>Insertion fees.</strong> Your first 250 listings a month are free; after that $0.35 each. We spread the excess across your monthly orders so relist-heavy sellers see the real per-sale cost.</p>
+    <h2>FAQ</h2>
+    <p><strong>Is an eBay Store worth it?</strong> A store mainly buys lower FVF in specific categories and more free listings. Run your category at your store's rate in the override field, multiply the monthly saving by your order count, and compare with the subscription — that arithmetic, not the marketing page, decides it.</p>
+    <p><strong>Why is my payout lower than price minus 13.6%?</strong> Usually three things: the per-order fee, FVF charged on sales tax, and a promoted listing fee from a click up to 30 days before the sale.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22 against eBay's published fee pages. Category table covers the most-used categories; use the override for anything exotic. Compare this product on <a href="/">all six platforms</a>.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+$("category").innerHTML = FEES.ebay.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+initShareable("ebay-form");
+let last = null;
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), category: sval("category"),
+  taxRatePct: fval("taxRatePct"), rateOverridePct: fval("rateOverridePct"),
+  promotedRatePct: fval("promotedRatePct"), monthlyListings: fval("monthlyListings"), monthlyOrders: fval("monthlyOrders"),
+  topRatedPlus: bval("topRatedPlus"), international: bval("international"),
+  cogs: fval("cogs"), ownShippingCost: fval("ownShippingCost"), inboundPerUnit: fval("inboundPerUnit"),
+  packaging: fval("packaging"), adRate: fval("adRate"), returnRate: fval("returnRate")
+};}
+function run(){
+  const inp = readInput(); const r = calcEbay(inp); last = { inp, r };
+  renderLines("ebay-lines", r, "$");
+  $("st-net").textContent = money(r.netProfit); $("st-net").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-margin").textContent = r.margin.toFixed(1) + "%";
+  $("st-payout").textContent = money(r.payout);
+  $("st-take").textContent = money(r.totalFees) + " (" + r.takeRate.toFixed(1) + "%)";
+  $("st-base").textContent = money(r.fvfBase);
+  const be = breakEvenPrice(calcEbay, inp);
+  $("st-be").textContent = be ? money(be) : "—";
+}
+onCalc("ebay-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => { if (!last) return; const { inp, r } = last;
+  copyText(`eBay sale ${money(inp.price)}: eBay takes ${money(r.totalFees)} (${r.takeRate.toFixed(1)}%, charged on ${money(r.fvfBase)} incl. tax), net profit ${money(r.netProfit)} (${r.margin.toFixed(1)}%). via seller-tools.qingyinhui.com/ebay-fee-calculator/`, "Summary copied"); });
+</script>
+</body>
+</html>

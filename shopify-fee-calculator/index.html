@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopify Fee Calculator 2026 — Which Plan Is Actually Cheapest at Your Volume? | Seller Tools</title>
+<meta name="description" content="Free Shopify calculator: card rates by plan, monthly plan and app costs spread per order, third-party gateway penalties — and a live answer to which plan (Basic, Grow or Advanced) makes you the most money at your sales volume.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/shopify-fee-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What percentage does Shopify take per sale?","acceptedAnswer":{"@type":"Answer","text":"Shopify takes no marketplace commission. With Shopify Payments you pay card processing only: 2.9% + $0.30 on Basic, 2.7% + $0.30 on Grow, 2.5% + $0.30 on Advanced. Use a third-party gateway instead and Shopify adds 2%, 1% or 0.6% on top."}},
+{"@type":"Question","name":"Is Shopify Advanced worth it?","acceptedAnswer":{"@type":"Answer","text":"Only at high volume and high order values: Advanced saves 0.2–0.4% in card fees versus cheaper plans but costs $294–$360 more per month. At $150 average orders you need roughly 2,000 orders a month before Advanced beats Grow."}},
+{"@type":"Question","name":"What does Shopify really cost per month?","acceptedAnswer":{"@type":"Answer","text":"The plan ($39–$399 monthly, less on annual billing) plus your apps. This calculator spreads both across your monthly orders so you can compare Shopify honestly against marketplace fees."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Shopify Fee Calculator (2026)</h1>
+  <p class="lede">Shopify has no marketplace fee — which makes the real question different: at <em>your</em> volume, which plan leaves you the most money after card fees, the subscription and your apps? This calculator answers that live.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="shop-form">
+      <h2>Your store</h2>
+      <fieldset><legend>Order</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Average order value ($)</label><input id="price" type="number" step="0.01" min="0" value="45"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Plan &amp; payments</legend>
+        <div class="row2">
+          <div class="field"><label for="plan">Plan</label>
+            <select id="plan"><option value="basic">Basic</option><option value="grow">Grow</option><option value="advanced">Advanced</option></select></div>
+          <div class="field"><label for="billing">Billing</label>
+            <select id="billing"><option value="monthly">Monthly</option><option value="annual">Annual (cheaper)</option></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="payments">Payments</label>
+            <select id="payments"><option value="shopify">Shopify Payments</option><option value="thirdparty">Third-party gateway (+ extra fee)</option></select></div>
+          <div class="field"><label for="monthlyUnits">Orders / month</label><input id="monthlyUnits" type="number" step="1" min="1" value="300"></div>
+        </div>
+        <div class="field"><label for="appsMonthly">Apps cost / month ($)</label><input id="appsMonthly" type="number" step="1" min="0" value="30"><span class="hint">Reviews, upsells, email — the quiet stack</span></div>
+      </fieldset>
+      <fieldset><legend>Your costs</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="16"></div>
+          <div class="field"><label for="ownShippingCost">Your shipping cost ($)</label><input id="ownShippingCost" type="number" step="0.01" min="0" value="6.20"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="inboundPerUnit">Inbound shipping ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.40"></div>
+          <div class="field"><label for="packaging">Packaging ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.40"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="adRate">Advertising (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="15"></div>
+          <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="5"></div>
+        </div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-order breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Net profit / order</div><div class="v" id="st-net">–</div></div>
+        <div class="stat"><div class="k">Margin</div><div class="v" id="st-margin">–</div></div>
+        <div class="stat"><div class="k">Platform cost / order</div><div class="v" id="st-fees">–</div></div>
+        <div class="stat"><div class="k">Est. monthly profit</div><div class="v" id="st-month">–</div></div>
+      </div>
+      <table class="lines"><tbody id="shop-lines"></tbody></table>
+      <h2 style="margin-top:22px">Which plan wins at your volume?</h2>
+      <table class="compare"><thead><tr><th>Plan</th><th>Platform cost / order</th><th>Profit / order</th><th>Profit / month</th></tr></thead>
+      <tbody id="plan-body"></tbody></table>
+      <p class="note">Same store, same orders — only the plan changes. The winner is whichever row is green.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>What Shopify actually charges</h2>
+    <p><strong>Card processing (Shopify Payments, online, US).</strong> Basic 2.9% + $0.30, Grow 2.7% + $0.30, Advanced 2.5% + $0.30 per order. No marketplace commission, no per-order platform fee beyond processing.</p>
+    <p><strong>The plan itself.</strong> $39 / $105 / $399 monthly — or $29 / $79 / $299 per month on annual billing. Whether the bigger plan pays is pure arithmetic: Advanced's 0.2% card saving over Grow must cover a $294/month gap. At a $50 order value that's $0.10 an order — you'd need ~2,940 orders a month. At $150 orders it's $0.30 — about 980 a month covers it versus Grow, and the table above does your exact numbers.</p>
+    <p><strong>The third-party penalty.</strong> Skip Shopify Payments and you pay your gateway <em>plus</em> Shopify's extra: 2% on Basic, 1% on Grow, 0.6% on Advanced. On Basic that's almost never worth it.</p>
+    <p><strong>Apps.</strong> The unlisted fee. A typical stack (reviews, upsells, subscriptions, email) runs $30–$150/month; we spread whatever you enter across your orders so a 50-order month feels it honestly.</p>
+    <h2>FAQ</h2>
+    <p><strong>Is Shopify cheaper than Amazon?</strong> On fees per order, usually yes — processing (~3%) beats referral + fulfillment (~30% all-in on a $30 FBA item). But Amazon's fee buys traffic; Shopify's doesn't. Your ad rate input is where that truth lives: raise it until it reflects buying every visitor, then compare with the <a href="/">six-platform tool</a>.</p>
+    <p><strong>Should I bill annually?</strong> If the store survives the year, annual billing saves $120–$1,200 depending on plan. The calculator's annual toggle shows the per-order effect instantly.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22 against Shopify's published pricing. In-person rates and Shopify Plus differ.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+initShareable("shop-form");
+let last = null;
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), plan: sval("plan"), billing: sval("billing"),
+  payments: sval("payments"), monthlyUnits: Math.max(fval("monthlyUnits"), 1), appsMonthly: fval("appsMonthly"),
+  cogs: fval("cogs"), ownShippingCost: fval("ownShippingCost"), inboundPerUnit: fval("inboundPerUnit"),
+  packaging: fval("packaging"), adRate: fval("adRate"), returnRate: fval("returnRate")
+};}
+function run(){
+  const inp = readInput(); const r = calcShopify(inp); last = { inp, r };
+  renderLines("shop-lines", r, "$");
+  $("st-net").textContent = money(r.netProfit); $("st-net").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-margin").textContent = r.margin.toFixed(1) + "%";
+  $("st-fees").textContent = money(r.totalFees);
+  const month = Math.round(r.netProfit * inp.monthlyUnits * 100) / 100;
+  $("st-month").textContent = money(month);
+  const cmp = shopifyPlanComparison(inp);
+  $("plan-body").innerHTML = cmp.map((c, idx) =>
+    `<tr class="${idx === 0 ? "best" : ""}"><td>${c.plan}${idx === 0 ? " ★ best" : ""}</td><td>${money(c.feesPerOrder)}</td><td class="${c.perOrder >= 0 ? "pos" : "neg"}">${money(c.perOrder)}</td><td>${money(c.monthly)}</td></tr>`).join("");
+}
+onCalc("shop-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => { if (!last) return; const { inp, r } = last;
+  copyText(`Shopify (${inp.plan}, ${inp.monthlyUnits} orders/mo): platform cost ${money(r.totalFees)}/order, net profit ${money(r.netProfit)} (${r.margin.toFixed(1)}%). via seller-tools.qingyinhui.com/shopify-fee-calculator/`, "Summary copied"); });
+</script>
+</body>
+</html>

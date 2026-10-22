@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverse Pricing Calculator — What Price Hits Your Profit Target on Each Platform? | Seller Tools</title>
+<meta name="description" content="Start from the profit you want — per sale or as a margin — and get the exact price you need to charge on Amazon, Etsy, eBay, Shopify and TikTok Shop after all 2026 fees, ads and returns.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/reverse-pricing-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Reverse Pricing Calculator","url":"https://seller-tools.qingyinhui.com/reverse-pricing-calculator/","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Reverse Pricing Calculator</h1>
+  <p class="lede">Most sellers pick a price, then discover their profit. Flip it: name the profit you need — per sale, or as a margin — enter your costs once, and get the price you must charge on each platform to actually hit it.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="rev-form">
+      <h2>Your target &amp; costs</h2>
+      <fieldset><legend>Target</legend>
+        <div class="row2">
+          <div class="field"><label for="targetMode">I want to hit…</label>
+            <select id="targetMode"><option value="profit">Net profit per sale ($)</option><option value="margin">Net margin (%)</option></select></div>
+          <div class="field"><label for="targetValue">Target</label><input id="targetValue" type="number" step="0.5" min="0" value="8"></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Product costs (shared)</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="8"></div>
+          <div class="field"><label for="inboundPerUnit">Inbound shipping / unit ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.20"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="packaging">Packaging ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.30"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged to buyer ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="ownShippingCost">Your shipping cost ($)</label><input id="ownShippingCost" type="number" step="0.01" min="0" value="4.80"><span class="hint">FBM / Etsy / eBay / Shopify / TikTok self-ship</span></div>
+          <div class="field"><label for="monthlyUnits">Units / month</label><input id="monthlyUnits" type="number" step="1" min="0" value="300"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="adRate">Advertising (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="10"></div>
+          <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="5"></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Platform details</legend>
+        <div class="row2">
+          <div class="field"><label for="amzCategory">Amazon category</label><select id="amzCategory"></select></div>
+          <div class="field"><label for="amzTier">Amazon FBA size tier</label>
+            <select id="amzTier"><option value="smallStandard">Small standard</option><option value="largeStandard" selected>Large standard</option><option value="smallOversize">Small oversize</option><option value="largeOversize">Large oversize</option></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="amzWeight">Weight (lb)</label><input id="amzWeight" type="number" step="0.1" min="0.1" value="1.2"></div>
+          <div class="field"><label for="etsyOffsite">Etsy Offsite Ads</label>
+            <select id="etsyOffsite"><option value="none">Off</option><option value="this">On (this order)</option><option value="amortized">Spread across orders</option></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="ebayCategory">eBay category</label><select id="ebayCategory"></select></div>
+          <div class="field"><label for="ttAffiliate">TikTok creator commission (%)</label><input id="ttAffiliate" type="number" step="0.5" min="0" max="100" value="10"></div>
+        </div>
+        <div class="field"><label for="shopifyPlan">Shopify plan</label>
+          <select id="shopifyPlan"><option value="basic">Basic</option><option value="grow">Grow</option><option value="advanced">Advanced</option></select></div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Price you need to charge</h2>
+      <table class="compare"><thead><tr><th>Platform</th><th>Required price</th><th>Fees at that price</th><th>Margin</th></tr></thead>
+      <tbody id="rev-body"></tbody></table>
+      <p class="note">Sorted by required price — the top platform reaches your target at the lowest price, so it gives you the most room to compete. Amazon assumes the Professional plan; Etsy is US; eBay includes no sales-tax effect (add it on the eBay page); TikTok uses your own shipping cost.</p>
+      <div id="rev-detail"></div>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>Why price backwards?</h2>
+    <p>Percentage fees scale with price, fixed fees don't, and some fees (Amazon's clothing tiers, Etsy's Offsite Ads) jump at thresholds. That means “cost + 40%” lands somewhere different on every platform. Solving backwards — the way this tool does, by testing prices against the full fee engine until your target is hit to the cent — is the only way the number on your listing and the number in your bank account agree.</p>
+    <p>Use it before you order inventory, not after: if the required price on your best platform is above what the market pays, the product is wrong, not the price. Change the product, the bundle, or the platform — the calculator will tell you within a dollar whether the new idea clears your floor.</p>
+    <p>Want the forward view instead? The <a href="/">comparison calculator</a> takes one price and shows profit everywhere; each platform page (<a href="/amazon-fba-calculator/">Amazon</a>, <a href="/etsy-fee-calculator/">Etsy</a>, <a href="/ebay-fee-calculator/">eBay</a>, <a href="/tiktok-shop-calculator/">TikTok</a>, <a href="/shopify-fee-calculator/">Shopify</a>) goes line by line.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22. Estimates only.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+$("amzCategory").innerHTML = FEES.amazon.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+$("amzCategory").value = "home";
+$("ebayCategory").innerHTML = FEES.ebay.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+initShareable("rev-form");
+function shared(){ return {
+  shippingCharged: fval("shippingCharged"), cogs: fval("cogs"), inboundPerUnit: fval("inboundPerUnit"),
+  packaging: fval("packaging"), adRate: fval("adRate"), returnRate: fval("returnRate"), monthlyUnits: fval("monthlyUnits")
+};}
+function platforms(){
+  const s = shared(), ship = fval("ownShippingCost"), units = fval("monthlyUnits");
+  return [
+    { name: "Amazon FBA", fn: calcAmazon, input: { ...s, method: "fba", category: sval("amzCategory"), tier: sval("amzTier"), weightLb: Math.max(fval("amzWeight"), 0.1), plan: units > 0 ? "professional" : "none", placementFee: 0.27, fuelSurcharge: true, lengthIn: 0, widthIn: 0, heightIn: 0, monthsStored: 0 } },
+    { name: "Amazon FBM", fn: calcAmazon, input: { ...s, method: "fbm", category: sval("amzCategory"), ownShippingCost: ship, plan: units > 0 ? "professional" : "none" } },
+    { name: "Etsy", fn: calcEtsy, input: { ...s, country: "US", shippingCostActual: ship, giftWrap: 0, offsiteMode: sval("etsyOffsite"), shopTier: "under10k", offsiteSharePct: 20 } },
+    { name: "eBay", fn: calcEbay, input: { ...s, category: sval("ebayCategory"), ownShippingCost: ship } },
+    { name: "Shopify", fn: calcShopify, input: { ...s, plan: sval("shopifyPlan"), billing: "monthly", payments: "shopify", ownShippingCost: ship, appsMonthly: 0 } },
+    { name: "TikTok Shop", fn: calcTiktok, input: { ...s, referralRatePct: 6, affiliateRate: fval("ttAffiliate"), shippingMode: "self", shippingCost: ship } }
+  ];
+}
+function run(){
+  const mode = sval("targetMode"), target = fval("targetValue");
+  const solved = platforms().map(p => {
+    const sol = solvePrice(p.fn, p.input, mode, target);
+    return { name: p.name, sol };
+  });
+  solved.sort((a, b) => (a.sol ? a.sol.price : Infinity) - (b.sol ? b.sol.price : Infinity));
+  $("rev-body").innerHTML = solved.map((r, idx) =>
+    r.sol ? `<tr class="${idx === 0 ? "best" : ""}"><td>${r.name}${idx === 0 ? " ★ lowest required price" : ""}</td><td><strong>${money(r.sol.price)}</strong></td><td>${money(r.sol.result.totalFees)}</td><td>${r.sol.result.margin.toFixed(1)}%</td></tr>`
+          : `<tr><td>${r.name}</td><td colspan="3">Target not achievable at any reasonable price</td></tr>`).join("");
+  const top = solved.find(r => r.sol);
+  $("rev-detail").innerHTML = top ? `<details class="detail" open><summary>${top.name} at ${money(top.sol.price)} — line by line</summary><table class="lines"><tbody>${top.sol.result.lines.map(l => `<tr><td>${l.label}</td><td>-${money(l.amount)}</td></tr>`).join("")}<tr class="total"><td>Net profit</td><td>${money(top.sol.result.netProfit)}</td></tr></tbody></table></details>` : "";
+}
+onCalc("rev-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+</script>
+</body>
+</html>

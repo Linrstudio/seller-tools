@@ -199,4 +199,105 @@ function breakEvenPrice(calcFn, baseInput) {
   return round2(hi);
 }
 
-if (typeof module !== "undefined" && module.exports) module.exports = { calcAmazon, calcEtsy, calcComparison, breakEvenPrice, amazonReferral, amazonFulfillment };
+/* ---------- eBay ---------- */
+function ebayCategory(id) { return FEES.ebay.categories.find(c => c.id === id) || FEES.ebay.categories[0]; }
+function ebayFVF(catId, base, rateOverride) {
+  if (rateOverride > 0) return round2(base * rateOverride);
+  const cat = ebayCategory(catId);
+  if (cat.type === "flat") return round2(base * cat.rate);
+  let fee = 0, prev = 0;
+  for (const b of cat.bands) { const slice = Math.min(base, b.upTo) - prev; if (slice > 0) fee += slice * b.rate; prev = b.upTo; if (base <= b.upTo) break; }
+  return round2(fee);
+}
+function calcEbay(i) {
+  const price = num(i.price), ship = num(i.shippingCharged);
+  const taxedTotal = (price + ship) * (1 + clampPct(i.taxRatePct));
+  const adRate = clampPct(i.adRate), retRate = clampPct(i.returnRate);
+  let fvf = ebayFVF(i.category, taxedTotal, num(i.rateOverridePct) > 0 ? num(i.rateOverridePct) / 100 : 0);
+  if (i.topRatedPlus) fvf = round2(fvf * 0.9);
+  const fees = [{ label: `Final value fee${i.topRatedPlus ? " (Top Rated Plus −10%)" : ""}`, amount: fvf }];
+  fees.push({ label: "Per-order fee", amount: taxedTotal <= FEES.ebay.perOrderThreshold ? FEES.ebay.perOrderLow : FEES.ebay.perOrderHigh });
+  if (clampPct(i.promotedRatePct) > 0) fees.push({ label: "Promoted Listings fee", amount: round2(taxedTotal * clampPct(i.promotedRatePct)) });
+  if (i.international) fees.push({ label: "International fee (1.65%)", amount: round2(taxedTotal * FEES.ebay.internationalRate) });
+  if (num(i.monthlyOrders) > 0 && num(i.monthlyListings) > FEES.ebay.insertionFreePerMonth)
+    fees.push({ label: "Insertion fees (amortized)", amount: round2((num(i.monthlyListings) - FEES.ebay.insertionFreePerMonth) * FEES.ebay.insertionFee / num(i.monthlyOrders)) });
+  const shipCost = num(i.ownShippingCost);
+  const costs = [
+    { label: "Product cost (COGS)", amount: round2(num(i.cogs)) },
+    { label: "Inbound shipping", amount: round2(num(i.inboundPerUnit)) },
+    { label: "Packaging", amount: round2(num(i.packaging)) },
+    { label: "Your shipping cost", amount: round2(shipCost) },
+    { label: "Advertising (off-eBay)", amount: round2(adRate * price) },
+    { label: "Expected returns loss", amount: round2(retRate * (num(i.cogs) + num(i.inboundPerUnit) + num(i.packaging) + shipCost)) }
+  ];
+  const r = summarize(price + ship, fees, costs);
+  r.fvfBase = round2(taxedTotal);
+  return r;
+}
+
+/* ---------- TikTok Shop ---------- */
+function calcTiktok(i) {
+  const price = num(i.price), ship = num(i.shippingCharged);
+  const buyerTotal = price + ship;
+  const adRate = clampPct(i.adRate), retRate = clampPct(i.returnRate), affRate = clampPct(i.affiliateRate);
+  const refRate = num(i.referralRatePct, 6) / 100;
+  const referral = round2(buyerTotal * refRate);
+  const fees = [{ label: `Referral fee (${num(i.referralRatePct, 6)}%)`, amount: referral }];
+  if (affRate > 0) fees.push({ label: "Creator affiliate commission", amount: round2(price * affRate) });
+  const shipCost = num(i.shippingCost);
+  const costs = [
+    { label: "Product cost (COGS)", amount: round2(num(i.cogs)) },
+    { label: "Inbound freight (to FBT / warehouse)", amount: round2(num(i.inboundPerUnit)) },
+    { label: "Packaging", amount: round2(num(i.packaging)) },
+    { label: i.shippingMode === "fbt" ? "FBT fulfillment & delivery" : "Your shipping cost", amount: round2(shipCost) },
+    { label: "Shop ads", amount: round2(adRate * price) },
+    { label: "Expected returns loss", amount: round2(retRate * (num(i.cogs) + num(i.inboundPerUnit) + num(i.packaging) + shipCost)) },
+    { label: "Expected refund admin fees", amount: round2(retRate * Math.min(referral * FEES.tiktok.refundAdminShare, FEES.tiktok.refundAdminCap)) }
+  ];
+  return summarize(buyerTotal, fees, costs);
+}
+
+/* ---------- Shopify ---------- */
+function shopifyPlan(id) { return FEES.shopify.plans.find(p => p.id === id) || FEES.shopify.plans[0]; }
+function calcShopify(i) {
+  const plan = shopifyPlan(i.plan);
+  const price = num(i.price), ship = num(i.shippingCharged);
+  const buyerTotal = price + ship;
+  const adRate = clampPct(i.adRate), retRate = clampPct(i.returnRate);
+  const planMonthly = i.billing === "annual" ? plan.annualMonthly : plan.monthly;
+  const fees = [{ label: `Card processing (${(plan.cardRate * 100).toFixed(1)}% + $0.30)`, amount: round2(buyerTotal * plan.cardRate + plan.cardFixed) }];
+  if (i.payments === "thirdparty") fees.push({ label: "Third-party gateway extra fee", amount: round2(buyerTotal * plan.thirdPartyExtra) });
+  if (num(i.monthlyUnits) > 0) {
+    fees.push({ label: `${plan.label} plan (per order)`, amount: round2(planMonthly / num(i.monthlyUnits)) });
+    if (num(i.appsMonthly) > 0) fees.push({ label: "Apps (per order)", amount: round2(num(i.appsMonthly) / num(i.monthlyUnits)) });
+  }
+  const shipCost = num(i.ownShippingCost);
+  const costs = [
+    { label: "Product cost (COGS)", amount: round2(num(i.cogs)) },
+    { label: "Inbound shipping", amount: round2(num(i.inboundPerUnit)) },
+    { label: "Packaging", amount: round2(num(i.packaging)) },
+    { label: "Your shipping cost", amount: round2(shipCost) },
+    { label: "Advertising", amount: round2(adRate * price) },
+    { label: "Expected returns loss", amount: round2(retRate * (num(i.cogs) + num(i.inboundPerUnit) + num(i.packaging) + shipCost)) }
+  ];
+  return summarize(buyerTotal, fees, costs);
+}
+function shopifyPlanComparison(i) {
+  return FEES.shopify.plans.map(p => {
+    const r = calcShopify({ ...i, plan: p.id });
+    const units = Math.max(num(i.monthlyUnits), 0);
+    return { plan: p.label, perOrder: r.netProfit, monthly: round2(r.netProfit * units), feesPerOrder: r.totalFees };
+  }).sort((a, b) => b.perOrder - a.perOrder);
+}
+
+/* Solve the price that hits a target: mode "profit" ($ per sale) or "margin" (% of buyer total). */
+function solvePrice(calcFn, baseInput, mode, target) {
+  const f = (p) => { const r = calcFn({ ...baseInput, price: p }); return mode === "margin" ? r.netProfit - (target / 100) * r.buyerTotal : r.netProfit - target; };
+  let lo = 0.01, hi = 100000;
+  if (f(hi) < 0) return null;
+  for (let n = 0; n < 60; n++) { const mid = (lo + hi) / 2; (f(mid) >= 0 ? hi = mid : lo = mid); }
+  const price = round2(hi);
+  return { price, result: calcFn({ ...baseInput, price }) };
+}
+
+if (typeof module !== "undefined" && module.exports) module.exports = { calcAmazon, calcEtsy, calcComparison, calcEbay, calcTiktok, calcShopify, shopifyPlanComparison, solvePrice, breakEvenPrice, amazonReferral, amazonFulfillment, ebayFVF };
