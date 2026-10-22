@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etsy Fee Calculator 2026 — Real Take Rate, Offsite Ads &amp; Profit | Seller Tools</title>
+<meta name="description" content="Free Etsy fee calculator: 6.5% transaction fee, $0.20 listing, payment processing by country, regulatory fees, Offsite Ads (15%/12%) on, off or amortized, currency conversion — and your true all-in take rate and profit per order.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/etsy-fee-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What percentage does Etsy actually take?","acceptedAnswer":{"@type":"Answer","text":"For a US seller, about 10–11% of a typical order — not the headline 6.5%. On a $30 order with free shipping: $0.20 listing + $1.95 transaction fee (6.5%) + $1.15 payment processing (3% + $0.25) = $3.30. Add Offsite Ads and it can reach 25%."}},
+{"@type":"Question","name":"Does Etsy charge fees on shipping?","acceptedAnswer":{"@type":"Answer","text":"Yes. The 6.5% transaction fee and payment processing both apply to the total the buyer pays, including shipping charges and gift wrap."}},
+{"@type":"Question","name":"Can I opt out of Etsy Offsite Ads?","acceptedAnswer":{"@type":"Answer","text":"Only if your shop made under $10,000 in the last 365 days. Above that, participation is mandatory at 12%; below it, the rate is 15% and you can opt out. The fee only applies to orders attributed to an offsite ad click within 30 days."}},
+{"@type":"Question","name":"Are Etsy fees charged on sales tax or VAT?","acceptedAnswer":{"@type":"Answer","text":"Etsy fees are charged on the item total including shipping; in countries where Etsy collects and remits VAT on the sale (such as EU digital and many physical goods), processing is calculated on the VAT-inclusive amount the buyer paid."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare platforms</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Etsy Fee Calculator (2026)</h1>
+  <p class="lede">Etsy advertises 6.5%. US sellers actually pay about 11% before ads — this calculator stacks every fee in the right order, for your country, with Offsite Ads on, off, or spread realistically across all your orders.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="etsy-form">
+      <h2>Your order</h2>
+      <fieldset><legend>Order</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Item price</label><input id="price" type="number" step="0.01" min="0" value="30"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged to buyer</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="giftWrap">Gift wrap charged</label><input id="giftWrap" type="number" step="0.01" min="0" value="0"></div>
+          <div class="field"><label for="country">Shop country (payment processing)</label><select id="country"></select></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Offsite Ads</legend>
+        <div class="field"><label for="offsiteMode">This order…</label>
+          <select id="offsiteMode">
+            <option value="none">did not come from an Offsite Ad</option>
+            <option value="this">came from an Offsite Ad (full fee)</option>
+            <option value="amortized">spread it: amortize across all orders</option>
+          </select></div>
+        <div class="row2">
+          <div class="field"><label for="shopTier">Shop's last-365-day sales</label>
+            <select id="shopTier"><option value="under10k">Under $10,000 → 15%</option><option value="over10k">$10,000+ → 12% (mandatory)</option></select></div>
+          <div class="field"><label for="offsiteSharePct">% of orders from Offsite Ads</label><input id="offsiteSharePct" type="number" step="1" min="0" max="100" value="20"><span class="hint">Only used in “spread it” mode</span></div>
+        </div>
+        <label class="check"><input id="currencyConversion" type="checkbox"> Buyer paid in a different currency (+2.5% conversion)</label>
+      </fieldset>
+      <fieldset><legend>Your costs</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS</label><input id="cogs" type="number" step="0.01" min="0" value="10"></div>
+          <div class="field"><label for="shippingCostActual">Your actual shipping cost</label><input id="shippingCostActual" type="number" step="0.01" min="0" value="5"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="packaging">Packaging</label><input id="packaging" type="number" step="0.01" min="0" value="0.40"></div>
+          <div class="field"><label for="adRate">Other ads (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="0"><span class="hint">Etsy Ads, social, etc.</span></div>
+        </div>
+        <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="3"></div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-order breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Net profit / order</div><div class="v" id="st-net">–</div></div>
+        <div class="stat"><div class="k">Margin</div><div class="v" id="st-margin">–</div></div>
+        <div class="stat"><div class="k">Etsy pays you</div><div class="v" id="st-payout">–</div></div>
+        <div class="stat"><div class="k">Etsy's true take</div><div class="v" id="st-take">–</div></div>
+        <div class="stat"><div class="k">Break-even price</div><div class="v" id="st-be">–</div></div>
+        <div class="stat"><div class="k">If this order had an Offsite Ad</div><div class="v" id="st-offsite">–</div></div>
+      </div>
+      <table class="lines"><tbody id="etsy-lines"></tbody></table>
+      <p class="note">“Etsy's true take” = total platform fees ÷ what the buyer paid. Compare it with the 6.5% headline.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>Etsy's fees, in the order they hit</h2>
+    <p><strong>Listing fee — $0.20</strong> per listing, charged when you publish (and again at every renewal or auto-renew, and per item on multi-quantity sales). It is billed in USD; sellers in other currencies may see a small FX variance.</p>
+    <p><strong>Transaction fee — 6.5%</strong> of everything the buyer paid for the item: price <em>plus shipping plus gift wrap</em>. The “free shipping” guarantee era is over, but the fee still applies to whatever shipping you charge.</p>
+    <p><strong>Payment processing — varies by country.</strong> US: 3% + $0.25 on the full amount including any sales tax Etsy collects. UK: 4% + £0.20, plus a 0.48% regulatory operating fee; Canada adds 0.5%; France 1.14%. Pick your country above — this is the line most calculators get wrong.</p>
+    <p><strong>Offsite Ads — 15% or 12%, capped at $100 per order.</strong> Charged only when an order is attributed to Etsy's ads on Google or social media within 30 days of a click. Shops under $10k/year can opt out; above that it's mandatory at 12%. Because most orders aren't attributed, the honest way to price it in is “spread it” mode: full fee × the share of your orders it actually touches.</p>
+    <p><strong>Currency conversion — 2.5%</strong> when the buyer's payment currency differs from your shop currency.</p>
+    <h2>The $30 reality check</h2>
+    <p>A $30 item with free shipping, sold by a US shop with no Offsite Ad: Etsy takes $0.20 + $1.95 + $1.15 = <strong>$3.30 — exactly 11%</strong>. The same order attributed to an Offsite Ad at 15% adds $4.50, taking Etsy's cut to $7.80 — 26% of what the buyer paid, before you've bought materials or postage. If your prices were set against “6.5%”, they are wrong twice over.</p>
+    <h2>FAQ</h2>
+    <p><strong>Does Etsy charge the transaction fee on shipping?</strong> Yes — on shipping and gift wrap charges too, which is why “free shipping” (folding postage into the price) doesn't change your fees, only where they sit.</p>
+    <p><strong>Why is my processing fee higher than 3% + $0.25?</strong> Etsy calculates processing on the total including sales tax it collects and remits. On orders shipped to high-tax states, the effective rate creeps up.</p>
+    <p><strong>How do I lower my Etsy take rate?</strong> The levers that actually move it: keep Offsite Ads off until you're over the mandatory threshold (if you're under $10k), price shipping accurately instead of absorbing it silently, and remember the $0.20 listing fee punishes very cheap items — bundling beats discounting.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22 against Etsy's published fee policy. Compare this product on <a href="/">all six platforms</a> or run the <a href="/amazon-fba-calculator/">Amazon FBA calculator</a>.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare platforms</a> · <a href="/amazon-fba-calculator/">Amazon FBA Calculator</a> · <a href="/etsy-fee-calculator/">Etsy Fee Calculator</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+$("country").innerHTML = FEES.etsy.countries.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+initShareable("etsy-form");
+let last = null, sym = "$";
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), giftWrap: fval("giftWrap"), country: sval("country"),
+  offsiteMode: sval("offsiteMode"), shopTier: sval("shopTier"), offsiteSharePct: fval("offsiteSharePct"),
+  currencyConversion: bval("currencyConversion"),
+  cogs: fval("cogs"), shippingCostActual: fval("shippingCostActual"), packaging: fval("packaging"),
+  adRate: fval("adRate"), returnRate: fval("returnRate")
+};}
+function run(){
+  const inp = readInput();
+  sym = (FEES.etsy.countries.find(c => c.id === inp.country) || {}).symbol || "$";
+  const r = calcEtsy(inp); last = { inp, r };
+  renderLines("etsy-lines", r, sym);
+  $("st-net").textContent = money(r.netProfit, sym); $("st-net").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-margin").textContent = r.margin.toFixed(1) + "%";
+  $("st-payout").textContent = money(r.payout, sym);
+  $("st-take").textContent = money(r.totalFees, sym) + " (" + r.takeRate.toFixed(1) + "%)";
+  const be = breakEvenPrice(calcEtsy, inp);
+  $("st-be").textContent = be ? money(be, sym) : "—";
+  const withOff = calcEtsy({ ...inp, offsiteMode: "this" });
+  $("st-offsite").textContent = money(withOff.netProfit, sym);
+  $("st-offsite").className = "v " + (withOff.netProfit >= 0 ? "pos" : "neg");
+}
+onCalc("etsy-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => {
+  if (!last) return; const { inp, r } = last;
+  copyText(`Etsy order ${money(inp.price, sym)}: Etsy takes ${money(r.totalFees, sym)} (${r.takeRate.toFixed(1)}%), net profit ${money(r.netProfit, sym)} (${r.margin.toFixed(1)}% margin). via seller-tools.qingyinhui.com/etsy-fee-calculator/`, "Summary copied");
+});
+</script>
+</body>
+</html>

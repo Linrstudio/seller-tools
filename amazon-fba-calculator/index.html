@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon FBA Calculator 2026 — Fees, Profit, Break-Even Price &amp; ACoS | Seller Tools</title>
+<meta name="description" content="Free Amazon FBA calculator with 2026 fees: referral by category (incl. clothing and jewelry tiers), FBA fulfillment by size tier, the 3.5% fuel surcharge, storage, plan fees, ads and returns — plus break-even price and break-even ACoS.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/amazon-fba-calculator/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does Amazon take from a $30 sale?","acceptedAnswer":{"@type":"Answer","text":"For a typical Home & Kitchen product sold with FBA, roughly $9–$11: 15% referral ($4.50), FBA fulfillment (about $4.47 for a 1–1.5 lb large-standard item, plus the 3.5% fuel surcharge), storage and your share of the $39.99 Professional plan — before product cost, inbound freight and ads."}},
+{"@type":"Question","name":"What is the 3.5% Amazon fuel surcharge?","acceptedAnswer":{"@type":"Answer","text":"From April 17, 2026 Amazon adds a 3.5% fuel and logistics surcharge on top of FBA fulfillment fees. It is calculated on the fulfillment fee only, not on your price."}},
+{"@type":"Question","name":"What is break-even ACoS?","acceptedAnswer":{"@type":"Answer","text":"Your profit before ad spend, divided by your price. If your break-even ACoS is 32%, any campaign running above 32% ACoS loses money on that product."}},
+{"@type":"Question","name":"Do referral fees apply to shipping charges too?","acceptedAnswer":{"@type":"Answer","text":"Yes. Amazon calculates the referral fee on the total sales price: item price plus shipping and gift wrap charges."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare platforms</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Amazon FBA Calculator (2026 fees)</h1>
+  <p class="lede">The full stack, not just referral + fulfillment: category-tiered referral fees, the April 2026 fuel surcharge, storage, inbound placement, plan fees, ads and returns — ending in the two numbers that run your listing: break-even price and break-even ACoS.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="amz-form">
+      <h2>Your listing</h2>
+      <fieldset><legend>Price &amp; category</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Selling price ($)</label><input id="price" type="number" step="0.01" min="0" value="29.99"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="field"><label for="category">Category (sets the referral fee)</label><select id="category"></select></div>
+      </fieldset>
+      <fieldset><legend>Fulfillment</legend>
+        <div class="field"><label for="method">Method</label>
+          <select id="method"><option value="fba">Fulfilled by Amazon (FBA)</option><option value="fbm">Fulfilled by Merchant (FBM)</option></select></div>
+        <div id="fba-fields">
+          <div class="row2">
+            <div class="field"><label for="tier">Size tier</label>
+              <select id="tier"><option value="smallStandard">Small standard (≤ 1 lb)</option><option value="largeStandard" selected>Large standard (1–20 lb)</option><option value="smallOversize">Small oversize</option><option value="largeOversize">Large oversize</option></select></div>
+            <div class="field"><label for="weightLb">Weight (lb)</label><input id="weightLb" type="number" step="0.1" min="0.1" value="1.2"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="lengthIn">Length (in)</label><input id="lengthIn" type="number" step="0.1" min="0" value="9"></div>
+            <div class="field"><label for="widthIn">Width (in)</label><input id="widthIn" type="number" step="0.1" min="0" value="6"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="heightIn">Height (in)</label><input id="heightIn" type="number" step="0.1" min="0" value="3"></div>
+            <div class="field"><label for="monthsStored">Avg. months in storage</label><input id="monthsStored" type="number" step="0.1" min="0" value="1"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="placementFee">Inbound placement fee / unit ($)</label><input id="placementFee" type="number" step="0.01" min="0" value="0.27"></div>
+            <div class="field"><label class="check" style="margin-top:24px"><input id="seasonPeak" type="checkbox"> Peak storage (Oct–Dec)</label></div>
+          </div>
+          <label class="check"><input id="fuelSurcharge" type="checkbox" checked> Include 3.5% fuel &amp; logistics surcharge (from Apr 17, 2026)</label>
+        </div>
+        <div id="fbm-fields" style="display:none">
+          <div class="field"><label for="ownShippingCost">Your shipping cost per order ($)</label><input id="ownShippingCost" type="number" step="0.01" min="0" value="4.80"></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>Costs &amp; account</legend>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="8.00"></div>
+          <div class="field"><label for="inboundPerUnit">Inbound shipping / unit ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.20"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="packaging">Packaging ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.30"></div>
+          <div class="field"><label for="plan">Selling plan</label>
+            <select id="plan"><option value="professional">Professional ($39.99/mo)</option><option value="individual">Individual ($0.99/item)</option><option value="none">Don't include</option></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="monthlyUnits">Units / month (for plan split)</label><input id="monthlyUnits" type="number" step="1" min="0" value="300"></div>
+          <div class="field"><label for="adRate">Advertising (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="10"></div>
+        </div>
+        <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="5"></div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-sale breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Net profit / sale</div><div class="v" id="st-net">–</div></div>
+        <div class="stat"><div class="k">Margin</div><div class="v" id="st-margin">–</div></div>
+        <div class="stat"><div class="k">Amazon pays you</div><div class="v" id="st-payout">–</div></div>
+        <div class="stat"><div class="k">ROI on landed cost</div><div class="v" id="st-roi">–</div></div>
+        <div class="stat"><div class="k">Break-even price</div><div class="v" id="st-be">–</div></div>
+        <div class="stat"><div class="k">Break-even ACoS</div><div class="v" id="st-acos">–</div></div>
+      </div>
+      <table class="lines"><tbody id="amz-lines"></tbody></table>
+      <p class="note">Break-even ACoS = profit before ads ÷ price. Campaigns above it lose money. Break-even price holds every other input constant.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>Amazon's 2026 fee stack, in order</h2>
+    <p><strong>Referral fee.</strong> Charged on price + shipping + gift wrap, minimum $0.30. Most categories are 15%; electronics and computers are 8%; grocery and beauty drop to 8% at low price points; clothing is tiered 5% / 10% / 17% by price; jewelry pays 20% on the first $250 and 5% above. Media categories add a $1.80 closing fee.</p>
+    <p><strong>FBA fulfillment fee.</strong> Set by size tier and weight, revised January 2026 (about +$0.08 per unit on standard sizes). This calculator uses the published $10–$50 price-band schedule; items under $10 get a lower band in Seller Central. Since <strong>April 17, 2026</strong>, a <strong>3.5% fuel and logistics surcharge</strong> is added on top of the fulfillment fee.</p>
+    <p><strong>Storage.</strong> Standard-size inventory costs $0.78 per cubic foot per month January–September and $2.40 in Q4. Enter your dimensions and average months stored; we spread it per unit sold. Aged-inventory surcharges (after 181+ days) are not modeled — keep stock turning.</p>
+    <p><strong>The quiet ones.</strong> Inbound placement fees (per unit, when Amazon splits your shipment), the $39.99 Professional plan spread over your monthly units, ad spend as a share of price, and returns. A return is modeled as losing the landed product cost plus the outbound fulfillment — Amazon's percentage fees come back, the product usually doesn't.</p>
+    <h2>FAQ</h2>
+    <p><strong>How much does Amazon take from a $30 sale?</strong> For a typical Home &amp; Kitchen FBA product, about $9–$11 in Amazon fees alone — try it above with your own weight and category.</p>
+    <p><strong>Is FBA or FBM cheaper?</strong> Switch the Method selector: FBM drops fulfillment, storage and placement, but you pay your own shipping and lose the plan split advantage at volume. For light products under ~$15, FBM with cheap postage often wins; for everything else FBA's shipping rates are hard to beat.</p>
+    <p><strong>Why does my Seller Central number differ?</strong> Exact fulfillment fees depend on your product's price band and dimensional weight, and referral can vary by subcategory. Treat this as a planning estimate and verify a new ASIN in Amazon's revenue calculator before ordering stock.</p>
+    <p class="note">Rates: fee schedule version 2026.1, verified 2026-10-22 against Amazon's published pricing pages. Compare this product on <a href="/">all six platforms</a> or check <a href="/etsy-fee-calculator/">Etsy fees</a>.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare platforms</a> · <a href="/amazon-fba-calculator/">Amazon FBA Calculator</a> · <a href="/etsy-fee-calculator/">Etsy Fee Calculator</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+$("category").innerHTML = FEES.amazon.categories.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+$("category").value = "home";
+initShareable("amz-form");
+let last = null;
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), category: sval("category"),
+  method: sval("method"), tier: sval("tier"), weightLb: Math.max(fval("weightLb"), 0.1),
+  lengthIn: fval("lengthIn"), widthIn: fval("widthIn"), heightIn: fval("heightIn"),
+  monthsStored: fval("monthsStored"), seasonPeak: bval("seasonPeak"), placementFee: fval("placementFee"),
+  fuelSurcharge: bval("fuelSurcharge"), ownShippingCost: fval("ownShippingCost"),
+  cogs: fval("cogs"), inboundPerUnit: fval("inboundPerUnit"), packaging: fval("packaging"),
+  plan: sval("plan"), monthlyUnits: fval("monthlyUnits"), adRate: fval("adRate"), returnRate: fval("returnRate")
+};}
+function run(){
+  $("fba-fields").style.display = sval("method") === "fba" ? "" : "none";
+  $("fbm-fields").style.display = sval("method") === "fbm" ? "" : "none";
+  const inp = readInput(); const r = calcAmazon(inp); last = { inp, r };
+  renderLines("amz-lines", r, "$");
+  $("st-net").textContent = money(r.netProfit); $("st-net").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-margin").textContent = r.margin.toFixed(1) + "%";
+  $("st-payout").textContent = money(r.payout);
+  $("st-roi").textContent = r.roi.toFixed(0) + "%";
+  const be = breakEvenPrice(calcAmazon, inp);
+  $("st-be").textContent = be ? money(be) : "—";
+  $("st-acos").textContent = r.breakEvenAcos.toFixed(1) + "%";
+}
+onCalc("amz-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => {
+  if (!last) return; const { inp, r } = last;
+  copyText(`Amazon ${inp.method.toUpperCase()} — price ${money(inp.price)}: Amazon fees ${money(r.totalFees)}, net profit ${money(r.netProfit)} (${r.margin.toFixed(1)}% margin), break-even ACoS ${r.breakEvenAcos.toFixed(1)}%. via seller-tools.qingyinhui.com/amazon-fba-calculator/`, "Summary copied");
+});
+</script>
+</body>
+</html>

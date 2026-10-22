@@ -3,41 +3,104 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seller Tools — Marketplace Fee &amp; Profit Calculators</title>
-<meta name="description" content="Free calculators for online sellers: compare Amazon, Etsy, eBay, Shopify and TikTok Shop fees on the same product, see your real profit after every cost, and reverse-calculate the price you need to charge.">
-<style>
-  :root { color-scheme: light dark; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; line-height: 1.6; }
-  main { max-width: 760px; margin: 0 auto; padding: 48px 20px 64px; }
-  h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 12px; }
-  .sub { font-size: 1.1rem; opacity: .8; margin: 0 0 32px; }
-  .badge { display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border: 1px solid currentColor; border-radius: 999px; opacity: .75; margin-bottom: 20px; }
-  ul.tools { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 12px; }
-  ul.tools li { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px 16px; }
-  ul.tools b { display: block; margin-bottom: 2px; }
-  ul.tools span { opacity: .8; font-size: .95rem; }
-  footer { opacity: .6; font-size: .9rem; margin-top: 40px; }
-</style>
+<title>Marketplace Fee Comparison Calculator — Amazon vs Etsy vs eBay vs Shopify vs TikTok Shop | Seller Tools</title>
+<meta name="description" content="Enter one product once and compare your real profit on Amazon FBA, Amazon FBM, Etsy, eBay, Shopify and TikTok Shop — after platform fees, fulfillment, ads and returns. Free, no sign-up.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Marketplace Fee Comparison Calculator","url":"https://seller-tools.qingyinhui.com/","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
 </head>
 <body>
-<main>
-  <div class="badge">Launching soon</div>
-  <h1>What do you actually keep from every sale?</h1>
-  <p class="sub">Free fee &amp; profit calculators for online sellers. Enter one product once — see your real take-home on every marketplace, after platform fees, fulfillment, ads, returns and shipping.</p>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main">
+    <a href="/">Compare platforms</a>
+    <a href="/amazon-fba-calculator/">Amazon FBA</a>
+    <a href="/etsy-fee-calculator/">Etsy</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <h1>Same product. Six platforms. One honest answer.</h1>
+  <p class="lede">Headline fees lie. Enter your product once — this calculator applies each platform's full 2026 fee stack (referral, fulfillment, payment processing, plan costs), then subtracts your product cost, ads and expected returns, so you see what you actually keep on every marketplace.</p>
 
-  <ul class="tools">
-    <li><b>Marketplace Fee Comparison</b><span>Amazon vs Etsy vs eBay vs Shopify vs TikTok Shop, side by side on the same product.</span></li>
-    <li><b>Amazon FBA Calculator</b><span>Referral, fulfillment, storage and the 2026 fuel surcharge — the full fee stack.</span></li>
-    <li><b>Etsy Fee Calculator</b><span>Why the real cut is closer to 10% than the headline 6.5%, with Offsite Ads included.</span></li>
-    <li><b>eBay Fee Calculator</b><span>Final value fees by category and store tier, including the fee charged on shipping and tax.</span></li>
-    <li><b>TikTok Shop Calculator</b><span>Referral fees plus the creator commission most calculators forget.</span></li>
-    <li><b>Shopify Fee Calculator</b><span>Which plan is actually cheapest at your sales volume.</span></li>
-    <li><b>Reverse Pricing Calculator</b><span>Start from the profit you want — get the price you need to charge on each platform.</span></li>
-  </ul>
+  <div class="calc-grid">
+    <form class="card" id="cmp-form">
+      <h2>Your product</h2>
+      <fieldset><legend>Price &amp; product cost</legend>
+        <div class="row2">
+          <div class="field"><label for="price">Selling price ($)</label><input id="price" type="number" step="0.01" min="0" value="29.99"></div>
+          <div class="field"><label for="shippingCharged">Shipping charged to buyer ($)</label><input id="shippingCharged" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="cogs">Product cost / COGS ($)</label><input id="cogs" type="number" step="0.01" min="0" value="8.00"></div>
+          <div class="field"><label for="inboundPerUnit">Inbound shipping per unit ($)</label><input id="inboundPerUnit" type="number" step="0.01" min="0" value="1.20"><span class="hint">Factory → you / Amazon, per unit</span></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="packaging">Packaging per unit ($)</label><input id="packaging" type="number" step="0.01" min="0" value="0.30"></div>
+          <div class="field"><label for="ownShippingCost">Your shipping cost ($)</label><input id="ownShippingCost" type="number" step="0.01" min="0" value="4.80"><span class="hint">For FBM / Etsy / eBay / Shopify / TikTok</span></div>
+        </div>
+        <div class="field"><label for="weightLb">Product weight (lb) — drives the FBA fee</label><input id="weightLb" type="number" step="0.1" min="0.1" value="1.2"></div>
+      </fieldset>
+      <fieldset><legend>Reality checks</legend>
+        <div class="row2">
+          <div class="field"><label for="adRate">Advertising (% of price)</label><input id="adRate" type="number" step="0.5" min="0" max="100" value="10"></div>
+          <div class="field"><label for="returnRate">Return rate (%)</label><input id="returnRate" type="number" step="0.5" min="0" max="100" value="5"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="affiliateRate">TikTok creator commission (%)</label><input id="affiliateRate" type="number" step="0.5" min="0" max="100" value="10"></div>
+          <div class="field"><label for="monthlyUnits">Units sold per month</label><input id="monthlyUnits" type="number" step="1" min="0" value="300"><span class="hint">Spreads monthly plan fees</span></div>
+        </div>
+        <div class="field"><label for="shopifyPlan">Shopify plan</label>
+          <select id="shopifyPlan"><option value="basic">Basic ($39/mo)</option><option value="grow">Grow ($105/mo)</option><option value="advanced">Advanced ($399/mo)</option></select></div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
 
-  <p>Every calculator runs in your browser. No sign-up, and your numbers never leave your device.</p>
+    <div class="card">
+      <h2>Net profit per sale, by platform</h2>
+      <table class="compare"><thead><tr><th>Platform</th><th>Platform fees</th><th>You keep</th><th>Margin</th></tr></thead>
+      <tbody id="cmp-body"></tbody></table>
+      <p class="note">Assumptions: Amazon referral uses Home &amp; Kitchen (15%) and the 2026 FBA schedule incl. the 3.5% fuel surcharge; Etsy is US, no Offsite Ads; eBay is “most categories” (13.6%); TikTok Shop referral 6%. Open a platform below for its line-by-line breakdown, or use the dedicated calculators to change category, size tier, country and more.</p>
+      <div id="cmp-details"></div>
+    </div>
+  </div>
 
-  <footer>Fee schedules checked against each platform's published 2026 rates. Estimates only — your settlement statement is the final word.</footer>
+  <section class="prose">
+    <h2>Why the headline fee is never the real fee</h2>
+    <p>Every marketplace advertises one friendly number — Etsy says 6.5%, TikTok says 6%, eBay says ~13%. None of them is what leaves your account. Etsy adds a $0.20 listing fee and payment processing on the <em>total including shipping</em>, which takes a typical US order to about 11%. Amazon stacks referral, fulfillment, storage, plan fees and, since April 2026, a 3.5% fuel surcharge on fulfillment. eBay charges its final value fee on the total <em>including the sales tax the buyer paid</em>. Shopify looks free of marketplace fees until you divide a $39–$399 monthly plan by a small order count.</p>
+    <p>That's why this tool works backwards from your settlement, not forwards from a fee table: platform fees first, then the costs sellers forget — inbound freight, packaging, ad spend as a share of price, and the expected loss from returns (we model a return as losing the product cost plus the outbound delivery, with percentage fees refunded).</p>
+    <h2>Go deeper</h2>
+  </section>
+  <div class="grid3">
+    <div class="tool-card"><b><a href="/amazon-fba-calculator/">Amazon FBA Calculator</a></b><span>Every category, size tier, storage and plan fee — plus break-even price and break-even ACoS.</span></div>
+    <div class="tool-card"><b><a href="/etsy-fee-calculator/">Etsy Fee Calculator</a></b><span>All-in take rate by country, Offsite Ads on/off and amortized, currency conversion.</span></div>
+    <div class="tool-card"><b>Coming soon</b><span>eBay, TikTok Shop and Shopify calculators, plus a reverse pricing tool: name your profit, get your price on each platform.</span></div>
+  </div>
+  <p class="note" style="margin-top:18px">Fee schedules: version 2026.1, checked against each platform's published rates on 2026-10-22. Estimates only — your settlement statement is the final word. Nothing you type leaves your browser.</p>
 </main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare platforms</a> · <a href="/amazon-fba-calculator/">Amazon FBA Calculator</a> · <a href="/etsy-fee-calculator/">Etsy Fee Calculator</a></div></footer>
+
+<script src="/assets/fees-data.js"></script>
+<script src="/assets/engine.js"></script>
+<script src="/assets/ui.js"></script>
+<script>
+initShareable("cmp-form");
+function readInput(){ return {
+  price: fval("price"), shippingCharged: fval("shippingCharged"), cogs: fval("cogs"),
+  inboundPerUnit: fval("inboundPerUnit"), packaging: fval("packaging"), ownShippingCost: fval("ownShippingCost"),
+  weightLb: Math.max(fval("weightLb"), 0.1), adRate: fval("adRate"), returnRate: fval("returnRate"),
+  affiliateRate: fval("affiliateRate"), monthlyUnits: fval("monthlyUnits"), shopifyPlan: sval("shopifyPlan")
+};}
+function run(){
+  const rows = calcComparison(readInput());
+  $("cmp-body").innerHTML = rows.map((r, idx) =>
+    `<tr class="${idx === 0 ? "best" : ""}"><td>${r.name}${idx === 0 ? " ★ best" : ""}</td><td>${money(r.result.totalFees)}</td><td class="${r.result.netProfit >= 0 ? "pos" : "neg"}">${money(r.result.netProfit)}</td><td>${r.result.margin.toFixed(1)}%</td></tr>`).join("");
+  $("cmp-details").innerHTML = rows.map(r =>
+    `<details class="detail"><summary>${r.name} — line by line</summary><table class="lines"><tbody>${r.result.lines.map(l => `<tr><td>${l.label}</td><td>-${money(l.amount)}</td></tr>`).join("")}</tbody></table></details>`).join("");
+}
+onCalc("cmp-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied — it restores this exact scenario"));
+</script>
 </body>
 </html>
