@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which Platform Keeps the Most? (2026) — Rank Amazon, Etsy, eBay, TikTok &amp; Shopify | Seller Tools</title>
+<meta name="description" content="Enter your real numbers once — price, product cost, shipping, volume — and rank Amazon FBA, Amazon FBM, Etsy, eBay, TikTok Shop and Shopify by net profit per sale and per month.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/best-platform-calculator/">
+<link rel="stylesheet" href="/assets/site.css?v=2">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Which platform keeps the most?</h1>
+  <p class="lede">Stop comparing headline percentages. Enter your real numbers once and every platform is ranked by the only number that matters: net profit per sale — and per month at your volume.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="bp-form">
+      <h2>Your product</h2>
+      <div class="row2">
+        <div class="field"><label for="bp-price">Selling price ($)</label><input id="bp-price" type="number" step="0.01" min="0.01" value="29.99"></div>
+        <div class="field"><label for="bp-cogs">Product cost ($) <span class="hint">per unit, landed</span></label><input id="bp-cogs" type="number" step="0.01" min="0" value="10.50"></div>
+        <div class="field"><label for="bp-inbound">Inbound shipping ($/unit)</label><input id="bp-inbound" type="number" step="0.01" min="0" value="1.20"></div>
+        <div class="field"><label for="bp-packaging">Packaging ($/unit)</label><input id="bp-packaging" type="number" step="0.01" min="0" value="0.30"></div>
+        <div class="field"><label for="bp-ship">Your shipping cost ($/order)</label><input id="bp-ship" type="number" step="0.01" min="0" value="4.80"></div>
+        <div class="field"><label for="bp-weight">Weight (lb)</label><input id="bp-weight" type="number" step="0.1" min="0" value="1.2"></div>
+        <div class="field"><label for="bp-units">Units sold per month</label><input id="bp-units" type="number" step="1" min="0" value="300"></div>
+        <div class="field"><label for="bp-ads">Advertising (% of price)</label><input id="bp-ads" type="number" step="0.5" min="0" max="100" value="10"></div>
+        <div class="field"><label for="bp-returns">Return rate (%)</label><input id="bp-returns" type="number" step="0.5" min="0" max="100" value="5"></div>
+        <div class="field"><label for="bp-affiliate">TikTok affiliate (%)</label><input id="bp-affiliate" type="number" step="0.5" min="0" max="100" value="10"></div>
+        <div class="field"><label for="bp-aff-on">TikTok affiliate</label><select id="bp-aff-on"><option value="1" selected>On — creators take a cut</option><option value="0">Off — no creator commission</option></select></div>
+        <div class="field"><label for="bp-plan">Shopify plan</label><select id="bp-plan"><option value="basic" selected>Basic — $39/mo</option><option value="grow">Grow — $105/mo</option><option value="advanced">Advanced — $399/mo</option></select></div>
+      </div>
+      <p class="note">Shareable: the URL updates as you type, so you can send this exact scenario to a partner.</p>
+    </form>
+
+    <div class="card">
+      <h2>Ranking</h2>
+      <p id="bp-winner" style="font-size:1.05rem"></p>
+      <table class="compare"><thead><tr><th>#</th><th>Platform</th><th>Platform fees</th><th>Net / sale</th><th>Margin</th><th>Net / month</th></tr></thead><tbody id="bp-rows"></tbody></table>
+      <p class="note">Assumes free shipping to the buyer, US rates, Home &amp; Kitchen / most categories, and the same advertising and return rates everywhere. For category-specific rates, use each platform's own calculator — the ranking links are below.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>What flips the winner</h2>
+    <p><strong>Volume.</strong> Shopify's $39 a month is $0.13 a sale at 300 units and $1.30 at 30 units — drag Monthly units down and watch Shopify fall down the table. Amazon's $39.99 Professional plan behaves the same way.</p>
+    <p><strong>The TikTok affiliate switch.</strong> With affiliate at 10%, TikTok sits near the bottom of most rankings; turn it off and TikTok's bare 6% referral jumps near the top. The switch is the decision, not the headline rate.</p>
+    <p><strong>Price level.</strong> At $10, per-order fees ($0.30–$0.40) and fixed costs dominate and almost every platform loses money on this cost profile; at $100+, percentages dominate and the cheapest percentage wins. The ranking is a function of your price, not a property of the platforms.</p>
+    <h2>Detail pages</h2>
+    <p>See the full fee stack behind any row: <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a> (what price you need for a target profit on each platform).</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/fee-schedules/">Fee Schedules</a> · <a href="/examples/">Worked Examples</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a></div></footer>
+
+<script src="/assets/fees-data.js?v=2"></script>
+<script src="/assets/engine.js?v=2"></script>
+<script src="/assets/ui.js?v=2"></script>
+<script>
+function bpRun() {
+  const input = {
+    price: fval("bp-price"), shippingCharged: 0,
+    cogs: fval("bp-cogs"), inboundPerUnit: fval("bp-inbound"), packaging: fval("bp-packaging"),
+    ownShippingCost: fval("bp-ship"), weightLb: fval("bp-weight"), monthlyUnits: fval("bp-units"),
+    adRate: fval("bp-ads"), returnRate: fval("bp-returns"),
+    affiliateRate: sval("bp-aff-on") === "1" ? fval("bp-affiliate") : 0,
+    shopifyPlan: sval("bp-plan")
+  };
+  const rows = calcComparison(input);
+  const units = Math.max(input.monthlyUnits, 0);
+  const top = rows[0];
+  $("bp-winner").innerHTML = rows.length && top ? `<strong>${top.name}</strong> keeps the most at this price: <strong>${money(top.result.netProfit)}</strong> per sale${units ? `, <strong>${money(top.result.netProfit * units)}</strong> per month at ${units} units` : ""}.` : "Enter a price to rank the platforms.";
+  $("bp-rows").innerHTML = rows.map((r, i) =>
+    `<tr><td>${i + 1}</td><td>${r.name}</td><td>${money(r.result.totalFees)}</td><td class="${r.result.netProfit >= 0 ? "pos" : "neg"}">${money(r.result.netProfit)}</td><td>${r.result.margin}%</td><td>${money(r.result.netProfit * units)}</td></tr>`).join("");
+}
+initShareable("bp-form");
+onCalc("bp-form", bpRun);
+</script>
+</body>
+</html>
