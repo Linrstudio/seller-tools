@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiverr Fee Calculator 2026 — How Much Fiverr Takes (20%) + Upwork | Seller Tools</title>
+<meta name="description" content="Free Fiverr fee calculator: the flat 20% service fee on every gig, extras and tips, withdrawal fees by method, and what your client actually pays. Switch to Upwork for its 0–15% per-contract fee, Connects and withdrawal costs — or work backwards from the take-home pay you want.">
+<link rel="canonical" href="https://seller-tools.qingyinhui.com/fiverr-fee-calculator/">
+<link rel="stylesheet" href="/assets/site.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does Fiverr take from a $100 gig?","acceptedAnswer":{"@type":"Answer","text":"$20. You keep $80 before withdrawal fees. The 20% applies to the whole order including Gig Extras and tips, at every seller level. The buyer pays separately: 5.5% plus $3.50 on orders under $200, so a $100 gig costs the client $109."}},
+{"@type":"Question","name":"Is Upwork still a flat 10% fee?","acceptedAnswer":{"@type":"Answer","text":"No — not for contracts started since May 2025. Upwork's freelancer service fee is now 0% to 15% per contract, set when the contract starts and locked for its life. Older contracts keep their 10% flat rate. This calculator defaults to 10% — change it to the rate shown on your contract."}},
+{"@type":"Question","name":"What is the cheapest way to withdraw from Fiverr?","acceptedAnswer":{"@type":"Answer","text":"PayPal: Fiverr charges no withdrawal fee and the minimum is $1. Bank transfer via Payoneer costs $1 on Fiverr's main withdrawal page (its Payoneer setup guide lists $3 for local-currency transfers — check the fee shown before you confirm). A Payoneer account costs $3."}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">Seller<span>Tools</span></a>
+  <nav class="main"><a href="/">Compare</a><a href="/amazon-fba-calculator/">Amazon FBA</a><a href="/etsy-fee-calculator/">Etsy</a><a href="/ebay-fee-calculator/">eBay</a><a href="/tiktok-shop-calculator/">TikTok Shop</a><a href="/shopify-fee-calculator/">Shopify</a><a href="/fiverr-fee-calculator/">Fiverr</a><a href="/reverse-pricing-calculator/">Reverse Pricing</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>Fiverr Fee Calculator (2026)</h1>
+  <p class="lede">Fiverr's fee is the simplest on this site — a flat 20% of everything, extras and tips included — which is exactly why it stings: there is no category trick and no store tier that lowers it. This calculator shows what you keep after the 20%, what the client pays on top, and what the withdrawal method quietly takes next. Switch to Upwork and the same page handles its 0–15% per-contract fee, Connects and withdrawal costs — or flip to reverse mode and find the price that leaves you the take-home pay you want.</p>
+
+  <div class="calc-grid">
+    <form class="card" id="freelance-form">
+      <h2>Your gig / contract</h2>
+      <fieldset><legend>Platform &amp; direction</legend>
+        <div class="row2">
+          <div class="field"><label for="platform">Platform</label><select id="platform"><option value="fiverr">Fiverr</option><option value="upwork">Upwork</option></select></div>
+          <div class="field"><label for="mode">Calculate</label><select id="mode"><option value="price">Price → what I keep</option><option value="target">Take-home I want → price to charge</option></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="price">Gig / contract price ($)</label><input id="price" type="number" step="0.01" min="0" value="100"></div>
+          <div class="field"><label for="target">Take-home I want ($)</label><input id="target" type="number" step="0.01" min="0" value="80" disabled><span class="hint">Only used in reverse mode</span></div>
+        </div>
+      </fieldset>
+      <fieldset id="upwork-fields" hidden><legend>Upwork only</legend>
+        <div class="row2">
+          <div class="field"><label for="upworkRatePct">Your service fee rate (%)</label><input id="upworkRatePct" type="number" step="0.5" min="0" max="15" value="10"><span class="hint">Since May 2025: 0–15% per contract, set at inception. Check your contract — default 10%.</span></div>
+          <div class="field"><label for="connects">Connects spent to win this job</label><input id="connects" type="number" step="1" min="0" value="0"><span class="hint">$0.15 each — the cost of bidding</span></div>
+        </div>
+        <div class="field"><label for="initiationFee">Contract initiation fee ($) — client pays</label><input id="initiationFee" type="number" step="0.01" min="0" value="0"><span class="hint">One-time per new contract, $0.99–$14.99. It raises what the client pays, not what you lose.</span></div>
+      </fieldset>
+      <fieldset><legend>Payout</legend>
+        <div class="field"><label for="withdrawal">Withdrawal method</label><select id="withdrawal"></select></div>
+        <div class="row2">
+          <div class="field"><label for="monthlyOrders">Orders / contracts per month</label><input id="monthlyOrders" type="number" step="1" min="0" value="10"><span class="hint">Withdrawal is charged per withdrawal — we spread it across your monthly orders</span></div>
+          <div class="field"><label for="taxRatePct">Income tax rate (%) — optional</label><input id="taxRatePct" type="number" step="1" min="0" max="50" value="0"><span class="hint">Estimate only; applied to what the platform pays you</span></div>
+        </div>
+      </fieldset>
+      <button type="button" class="btn ghost" id="copy-btn">Copy result summary</button>
+      <button type="button" class="btn ghost" id="share-btn">Copy link to this scenario</button>
+    </form>
+
+    <div class="card">
+      <h2>Per-gig breakdown</h2>
+      <div class="stats">
+        <div class="stat"><div class="k">You keep</div><div class="v" id="st-keep">–</div></div>
+        <div class="stat"><div class="k">Platform's take</div><div class="v" id="st-take">–</div></div>
+        <div class="stat"><div class="k">Client pays</div><div class="v" id="st-client">–</div></div>
+        <div class="stat"><div class="k">Effective take rate</div><div class="v" id="st-rate">–</div></div>
+        <div class="stat"><div class="k" id="st-price-k">Price to charge</div><div class="v" id="st-price">–</div></div>
+      </div>
+      <table class="lines"><tbody id="freelance-lines"></tbody></table>
+      <p class="note">“Client pays” is what leaves the client's pocket — platform fee on top of your price, plus any initiation fee. It is not deducted from you, but it is what your price really costs the other side.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>Fiverr's fees, piece by piece</h2>
+    <p><strong>The 20%.</strong> Fiverr takes a flat 20% of every completed order — gig price, Gig Extras and tips included, at every seller level. You earn 80% of the purchase amount; the fee is deducted before the money reaches your balance, so your dashboard earnings are already net. There is no lower tier to unlock and no category that pays less. A $100 gig leaves you $80; a $500 gig leaves you $400.</p>
+    <p><strong>What the client pays.</strong> The buyer pays a separate service fee: 5.5% of the purchase amount, plus $3.50 on orders under $200. So a $100 gig costs the client $109 while you keep $80 — the spread between those two numbers is Fiverr's real take on the transaction. Quote accordingly: the client is not paying $100, they are paying $109.</p>
+    <p><strong>Clearing period.</strong> Earnings sit in clearing for 14 days after order completion (7 days for Top Rated, Seller Plus Premium and Pro sellers) before you can withdraw them. Price rush jobs with that delay in mind.</p>
+    <p><strong>Withdrawal.</strong> PayPal is free from Fiverr's side (minimum $1, usually within 24 hours). Bank transfer via Payoneer is listed at $1 on Fiverr's main withdrawal page — but its Payoneer setup guide lists $3 for local-currency transfers and $1 for a USD wire, so check the fee shown before you confirm; this calculator uses $1. A Payoneer account costs $3 (minimum $10). Fiverr caps withdrawals at $5,000 per 24 hours, one withdrawal a day. Currency conversion markups from PayPal or Payoneer sit on top of these fees and are not in this calculator — they vary by country and provider.</p>
+    <h2>Upwork is no longer a flat 10%</h2>
+    <p>This is the fact most Upwork calculators still get wrong. Since May 2025, the freelancer service fee is <strong>0% to 15% per contract</strong> — set when the contract starts, shown to you before you accept, and locked for the life of that contract. Contracts from before May 2025 keep their 10% flat rate. The field above defaults to 10%: change it to the rate on your contract, because a 15% contract pays $850 on $1,000 where a 10% one pays $900.</p>
+    <p><strong>Connects.</strong> Proposals cost $0.15 per Connect. They are the cost of winning the job, so they belong in the math — ten Connects to land a $1,000 contract is another $1.50 off your take.</p>
+    <p><strong>What the client pays.</strong> Your client pays a 5% marketplace fee on the Basic plan, plus a one-time contract initiation fee of $0.99–$14.99 per new contract. On a $1,000 contract at 10%, the client pays $1,050 plus initiation while you keep $900.</p>
+    <p><strong>Withdrawal.</strong> Direct to a US bank is free for freelancers with a US tax address; since 1 September 2026 it costs $2.99 per transfer for freelancers whose tax address is outside the US. Direct to a local bank is $0.99, PayPal and Payoneer $2, Instant Pay (US) $2, and a US dollar wire $50. Direct Contracts — where you bring your own client onto Upwork for payment protection — cost 5%, or 0% with Freelancer Plus.</p>
+    <h2>Fiverr vs Upwork at a glance</h2>
+    <p>On a $1,000 job: Fiverr keeps $200 and you keep $800, while the client pays $1,055. Upwork at 10% keeps $100 and you keep $900, while the client pays $1,050 plus the initiation fee. Upwork leaves more per dollar — but you pay Connects to win the work, the rate varies by contract, and the client sees a marketplace fee too. Run your real numbers above; the cheaper platform is the one where your rate, your Connects spend and your withdrawal route add up smallest.</p>
+    <h2>FAQ</h2>
+    <p><strong>How much does Fiverr take from a $100 gig?</strong> $20 — you keep $80 before withdrawal fees. The 20% covers the whole order including extras and tips. The client pays $109 on that gig (5.5% + $3.50 under $200).</p>
+    <p><strong>Is Upwork still 10%?</strong> Only for contracts started before May 2025. New contracts carry a 0–15% freelancer service fee, set per contract and locked in. Check the rate on your offer before you accept — it follows the contract for its whole life.</p>
+    <p><strong>Should I raise my price to cover the fee?</strong> That is what reverse mode is for: enter the take-home pay you want and it tells you the price to charge. On Fiverr, wanting $800 means charging $1,000; wanting $80 means charging $100. The fee is a percentage, so it scales — there is no price where it disappears.</p>
+    <p class="note">Rates: fee schedule version 2026.2. Fiverr's 20% and withdrawal fees verified 2026-11-09 against Fiverr's Help Center; Upwork's 0–15% range, Connects and withdrawal fees verified 2026-11-09 against Upwork's Help Center and fee pages. Compare this product on <a href="/">all six platforms</a>.</p>
+  </section>
+</main>
+<footer class="site"><div class="wrap">Seller Tools — free calculators for online sellers. <a href="/">Compare</a> · <a href="/amazon-fba-calculator/">Amazon FBA</a> · <a href="/etsy-fee-calculator/">Etsy</a> · <a href="/ebay-fee-calculator/">eBay</a> · <a href="/tiktok-shop-calculator/">TikTok Shop</a> · <a href="/shopify-fee-calculator/">Shopify</a> · <a href="/fiverr-fee-calculator/">Fiverr</a> · <a href="/reverse-pricing-calculator/">Reverse Pricing</a> · <a href="/fee-schedules/">Fee Schedules</a> · <a href="/examples/">Examples</a></div></footer>
+
+<script src="/assets/fees-data.js?v=3"></script>
+<script src="/assets/engine.js?v=3"></script>
+<script src="/assets/ui.js?v=2"></script>
+<script>
+function fillWithdrawals(){
+  const p = sval("platform");
+  const list = p === "upwork" ? FEES.freelance.upwork.withdrawals : FEES.freelance.fiverr.withdrawals;
+  $("withdrawal").innerHTML = list.map(w => `<option value="${w.id}">${w.label} — $${w.fee.toFixed(2)} fee (min $${w.min || 0})</option>`).join("");
+}
+fillWithdrawals();
+initShareable("freelance-form");
+let last = null;
+function readInput(){ return {
+  platform: sval("platform"), mode: sval("mode"),
+  price: fval("price"), target: fval("target"),
+  upworkRatePct: fval("upworkRatePct"), connects: fval("connects"), initiationFee: fval("initiationFee"),
+  withdrawal: sval("withdrawal"), monthlyOrders: fval("monthlyOrders"), taxRatePct: fval("taxRatePct")
+};}
+function run(){
+  const inp = readInput();
+  $("upwork-fields").hidden = inp.platform !== "upwork";
+  $("price").disabled = inp.mode === "target";
+  $("target").disabled = inp.mode !== "target";
+  let r, priceLabel, priceVal;
+  if (inp.mode === "target") {
+    const s = solvePrice(calcFreelance, inp, "profit", inp.target);
+    if (!s) { $("st-keep").textContent = "—"; $("st-take").textContent = "—"; $("st-client").textContent = "—"; $("st-rate").textContent = "—"; $("st-price").textContent = "—"; $("freelance-lines").innerHTML = ""; return; }
+    r = s.result; priceLabel = "Price to charge"; priceVal = money(s.price);
+  } else {
+    r = calcFreelance(inp);
+    const be = breakEvenPrice(calcFreelance, inp);
+    priceLabel = "Break-even price"; priceVal = (be && be >= 1) ? money(be) : "—"; // below $1 there is no fixed cost to break even on
+  }
+  last = { inp, r };
+  renderLines("freelance-lines", r, "$");
+  $("st-keep").textContent = money(r.netProfit); $("st-keep").className = "v " + (r.netProfit >= 0 ? "pos" : "neg");
+  $("st-take").textContent = money(r.totalFees) + " (" + r.takeRate.toFixed(1) + "%)";
+  $("st-client").textContent = money(r.clientPays);
+  $("st-rate").textContent = r.takeRate.toFixed(1) + "%";
+  $("st-price-k").textContent = priceLabel;
+  $("st-price").textContent = priceVal;
+}
+$("platform").addEventListener("change", () => { fillWithdrawals(); run(); });
+onCalc("freelance-form", run);
+$("share-btn").addEventListener("click", () => copyText(location.href, "Link copied"));
+$("copy-btn").addEventListener("click", () => { if (!last) return; const { inp, r } = last;
+  const plat = inp.platform === "upwork" ? "Upwork" : "Fiverr";
+  copyText(`${plat} gig ${money(inp.price)}: platform takes ${money(r.totalFees)} (${r.takeRate.toFixed(1)}%), client pays ${money(r.clientPays)}, you keep ${money(r.netProfit)}. via seller-tools.qingyinhui.com/fiverr-fee-calculator/`, "Summary copied"); });
+</script>
+</body>
+</html>

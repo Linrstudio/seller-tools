@@ -290,6 +290,52 @@ function shopifyPlanComparison(i) {
   }).sort((a, b) => b.perOrder - a.perOrder);
 }
 
+/* ---------- Freelance (Fiverr / Upwork) ----------
+   Money model: buyerTotal here is the order/contract amount the client agreed.
+   Platform fee is taken off the top; withdrawal fee is per withdrawal, spread
+   across monthly orders when given (like eBay insertion amortization); income
+   tax is an optional estimate on what the platform pays you. */
+function freelanceWithdrawal(platform, id) {
+  const list = platform === "upwork" ? FEES.freelance.upwork.withdrawals : FEES.freelance.fiverr.withdrawals;
+  return list.find(x => x.id === id) || list[0];
+}
+function calcFreelance(i) {
+  const price = num(i.price);
+  const taxRate = clampPct(i.taxRatePct);
+  const fees = [];
+  let serviceFee, serviceLabel;
+  if (i.platform === "upwork") {
+    const rate = Math.min(Math.max(num(i.upworkRatePct, FEES.freelance.upwork.serviceRateDefault * 100), 0), 15) / 100;
+    serviceFee = round2(price * rate);
+    serviceLabel = `Upwork service fee (${(rate * 100).toFixed(rate % 0.05 === 0 ? 0 : 1)}%)`;
+    const connects = Math.max(0, Math.floor(num(i.connects)));
+    if (connects > 0) fees.push({ label: `Connects (${connects} × $0.15 to win the job)`, amount: round2(connects * FEES.freelance.upwork.connectsEach) });
+  } else {
+    serviceFee = round2(price * FEES.freelance.fiverr.serviceRate);
+    serviceLabel = "Fiverr service fee (20%)";
+  }
+  fees.unshift({ label: serviceLabel, amount: serviceFee });
+  const w = freelanceWithdrawal(i.platform, i.withdrawal);
+  const orders = num(i.monthlyOrders);
+  const wdPerOrder = w.fee > 0 ? round2(orders > 0 ? w.fee / orders : w.fee) : 0;
+  if (wdPerOrder > 0) fees.push({ label: `Withdrawal fee — ${w.label}${orders > 0 ? " (per order)" : ""}`, amount: wdPerOrder });
+  const costs = [{ label: "Income tax (your estimate)", amount: round2(Math.max(0, price - serviceFee) * taxRate) }];
+  const r = summarize(price, fees, costs);
+  r.serviceFee = serviceFee;
+  r.withdrawalFee = w.fee;
+  // What the client pays on top of your price (informational; not deducted from you).
+  if (i.platform === "upwork") {
+    const initFee = num(i.initiationFee);
+    r.clientPays = round2(price * (1 + FEES.freelance.upwork.clientMarketplaceRate) + initFee);
+    r.clientExtra = round2(r.clientPays - price);
+  } else {
+    const buyerFee = round2(price * FEES.freelance.fiverr.buyerRate + (price < FEES.freelance.fiverr.buyerSmallThreshold ? FEES.freelance.fiverr.buyerSmallFee : 0));
+    r.clientPays = round2(price + buyerFee);
+    r.clientExtra = buyerFee;
+  }
+  return r;
+}
+
 /* Solve the price that hits a target: mode "profit" ($ per sale) or "margin" (% of buyer total). */
 function solvePrice(calcFn, baseInput, mode, target) {
   const f = (p) => { const r = calcFn({ ...baseInput, price: p }); return mode === "margin" ? r.netProfit - (target / 100) * r.buyerTotal : r.netProfit - target; };
@@ -300,4 +346,4 @@ function solvePrice(calcFn, baseInput, mode, target) {
   return { price, result: calcFn({ ...baseInput, price }) };
 }
 
-if (typeof module !== "undefined" && module.exports) module.exports = { calcAmazon, calcEtsy, calcComparison, calcEbay, calcTiktok, calcShopify, shopifyPlanComparison, solvePrice, breakEvenPrice, amazonReferral, amazonFulfillment, ebayFVF };
+if (typeof module !== "undefined" && module.exports) module.exports = { calcAmazon, calcEtsy, calcComparison, calcEbay, calcTiktok, calcShopify, calcFreelance, shopifyPlanComparison, solvePrice, breakEvenPrice, amazonReferral, amazonFulfillment, ebayFVF };

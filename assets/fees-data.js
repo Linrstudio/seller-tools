@@ -1,8 +1,8 @@
 /* Fee schedules, versioned. Update this file when platforms change rates.
-   Every rate carries its source context in the page copy; figures verified 2026-10-22. */
+   Every rate carries its source context in the page copy; marketplace figures verified 2026-10-22, freelance figures verified 2026-11-09. */
 const FEES = {
-  version: "2026.1",
-  verified: "2026-10-22",
+  version: "2026.2",
+  verified: "2026-11-09",
 
   amazon: {
     plans: { professional: 39.99, individualPerItem: 0.99 },
@@ -99,5 +99,32 @@ const FEES = {
     referralRateAlt: 0.05,
     refundAdminShare: 0.20,      // of the referral fee on refunded orders
     refundAdminCap: 5            // per SKU
+  },
+
+  freelance: { // verified 2026-11-09 against Fiverr + Upwork published fee pages
+    fiverr: {
+      serviceRate: 0.20, // flat on every order incl. Gig Extras and tips; seller keeps 80%
+      buyerRate: 0.055, buyerSmallFee: 3.50, buyerSmallThreshold: 200, // buyer pays; orders under $200 add $3.50
+      clearingDays: 14, clearingDaysTop: 7, // Top Rated / Seller Plus Premium / Pro
+      withdrawals: [
+        { id: "paypal",   label: "PayPal",                    fee: 0, min: 1 },
+        { id: "bank",     label: "Bank transfer (via Payoneer)", fee: 1, min: 20 },
+        { id: "payoneer", label: "Payoneer account",          fee: 3, min: 10 }
+      ]
+    },
+    upwork: {
+      serviceRateDefault: 0.10, serviceRateMin: 0, serviceRateMax: 0.15, // since May 2025: 0-15% per contract, set at inception, locked for life; pre-May-2025 contracts 10% flat
+      connectsEach: 0.15, // per Connect spent bidding
+      clientMarketplaceRate: 0.05, // Basic plan; client pays
+      withdrawals: [
+        { id: "usbank",      label: "Direct to US bank (US tax address)",     fee: 0 },
+        { id: "usbank-intl", label: "Direct to US bank (non-US tax address)", fee: 2.99 }, // since 2026-09-01
+        { id: "localbank",   label: "Direct to local bank",                   fee: 0.99 },
+        { id: "paypal",      label: "PayPal",                                 fee: 2 },
+        { id: "payoneer",    label: "Payoneer",                               fee: 2 },
+        { id: "instant",     label: "Instant Pay (US freelancers)",          fee: 2 },
+        { id: "wire",        label: "US dollar wire",                         fee: 50 }
+      ]
+    }
   }
 };
